@@ -17,23 +17,26 @@ limitations under the License.
 
 =cut
 
+package EnsEMBL::Web::ConfigPacker;
+
 use strict;
+use warnings;
+no warnings qw(uninitialized);
 
-package EnsEMBL::RapidRelease::SiteDefs;
-
-sub update_conf {
-  $SiteDefs::ENSEMBL_SUBTYPE          = 'Rapid Release';
-  $SiteDefs::FIRST_RELEASE_VERSION    = 100; ## Don't update this!
-  $SiteDefs::ENSEMBL_RELEASE_DATE = '23 February 2021';
-  $SiteDefs::NO_REGULATION            = 1;
-  $SiteDefs::NO_VARIATION             = 1;
-  $SiteDefs::NO_COMPARA               = 0;
-  $SiteDefs::SINGLE_SPECIES_COMPARA   = 1;
-  $SiteDefs::ENSEMBL_MART_ENABLED     = 0;
-
-  $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
-
-  $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Camarhynchus_parvulus_GCA_902806625.1';
+sub munge_databases {
+  my $self   = shift;
+  my @tables = qw(core cdna otherfeatures rnaseq);
+  $self->_summarise_core_tables($_, 'DATABASE_' . uc $_) for @tables;
+  $self->_summarise_xref_types('DATABASE_' . uc $_) for @tables;
+  $self->_summarise_variation_db('variation', 'DATABASE_VARIATION');
+  $self->_summarise_compara_db('compara', 'DATABASE_COMPARA');
 }
+
+sub munge_databases_multi {
+  my $self = shift;
+  $self->_summarise_website_db;
+  $self->_summarise_go_db;
+}
+
 
 1;

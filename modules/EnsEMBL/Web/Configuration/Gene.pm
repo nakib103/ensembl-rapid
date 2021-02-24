@@ -28,6 +28,13 @@ sub modify_tree {
   $self->PREV::modify_tree(@_);
   $self->delete_node('Regulation');
   $self->delete_node('Compara');
+ 
+  $self->create_node('Compara_Homolog', 'Homologues',
+    [qw( 
+      homologues EnsEMBL::Web::Component::Gene::ComparaHomologs 
+    )],
+    { 'availability' => 'gene database:compara core has_homologs', 'concise' => 'Homologues' }
+  ); 
 
   $self->delete_node('TranscriptComparison');
   $self->delete_node('Alleles');
