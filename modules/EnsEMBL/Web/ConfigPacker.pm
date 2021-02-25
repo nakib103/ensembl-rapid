@@ -38,5 +38,50 @@ sub munge_databases_multi {
   $self->_summarise_go_db;
 }
 
+sub _summarise_compara_db {
+## Stripped-down version, as not much data in these per-species compara dbs
+  my ($self, $code, $db_name) = @_;
+
+  my $dbh = $self->db_connect($db_name);
+  return unless $dbh;
+
+  push @{$self->db_tree->{'compara_like_databases'}}, $db_name;
+
+  $self->_summarise_generic($db_name, $dbh);
+
+  # Get list of species in the compara db (should just be one for rapid!)
+  my $spp_aref = $dbh->selectall_arrayref('select name from genome_db');
+
+  foreach my $row (@$spp_aref) {
+    my $name = $row->[0];
+    $self->db_tree->{$db_name}{'COMPARA_SPECIES'}{$name} = 1;
+  }
+
+  my %valid_species = map { $_ => 1 } keys %{$self->full_tree};
+
+  my %sections = (
+    ENSEMBL_HOMOLOGUES => 'GENE',
+  );
+
+  my $res_aref = $dbh->selectall_arrayref(qq{
+    select ml.type, gd.name, gd.name, count(*) as count
+      from method_link_species_set as mls, method_link as ml, species_set as ss, genome_db as gd 
+      where mls.species_set_id = ss.species_set_id and
+        ss.genome_db_id = gd.genome_db_id and
+        mls.method_link_id = ml.method_link_id and
+        ml.type not like '%PARALOGUES'
+      group by mls.method_link_species_set_id, mls.method_link_id
+      having count = 1
+  });
+
+  foreach my $row (@$res_aref) {
+    my $key = $sections{uc $row->[0]} || uc $row->[0];
+    my ($species1, $species2) = ($row->[1], $row->[2]);
+    $self->db_tree->{$db_name}{$key}{$species1}{$species2} = $valid_species{$species2};
+  }
+
+  $dbh->disconnect;
+
+}
 
 1;
