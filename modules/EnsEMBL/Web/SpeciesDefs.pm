@@ -22,6 +22,21 @@ package EnsEMBL::Web::SpeciesDefs;
 use strict;
 use warnings;
 
+sub get_species_name {
+## Get the name of a species and remove any GCA from the end
+  my ($self, $species) = @_;
+
+  ## Order of meta keys, as decided by QRP project
+  my $name = ucfirst($self->get_config($species, 'STRAIN_GROUP')
+                        || $self->get_config($species, 'SPECIES_DB_NAME')
+                        || $self->get_config($species, 'SPECIES_PRODUCTION_NAME'));
+  ## Remove any assembly accession from chosen name
+  $name =~ s/_gca\d+//;
+  $name =~ s/v\d+$//;
+
+  return $name;
+}
+
 sub _get_NCBIBLAST_source_file {
   ## @private
   my ($self, $species, $source_type) = @_;
@@ -31,13 +46,7 @@ sub _get_NCBIBLAST_source_file {
   $type     = lc($type =~ s/_/\./r);
 
   ## Get species name
-  my $sp_name   = ucfirst($self->get_config($species, 'STRAIN_GROUP')
-                        || $self->get_config($species, 'SPECIES_DB_NAME')
-                        || $self->get_config($species, 'SPECIES_PRODUCTION_NAME'));
-
-  ## Remove any assembly accession from chosen name, so we can append it separately
-  $sp_name =~ s/_gca\d+//;
-  $sp_name =~ s/v\d+$//;
+  my $sp_name   = $self->get_species_name($species);
   my $assembly  = $self->get_config($species, 'ASSEMBLY_ACCESSION');
 
   return sprintf '%s-%s-%s.fa', $sp_name, $assembly, $type unless $type =~ /latestgp/;
