@@ -43,13 +43,19 @@ sub render {
   my %species;
 
   foreach my $sp (@valid_species) {
+    my $species_name = ucfirst($species_defs->get_config($sp, 'STRAIN_GROUP')
+                        || $species_defs->get_config($sp, 'SPECIES_DB_NAME')
+                        || $species_defs->get_config($sp, 'SPECIES_PRODUCTION_NAME'));
+    ## Remove any assembly accession from chosen name
+    $species_name =~ s/_gca\d+//;
+    $species_name =~ s/v\d+$//;
     my $info    = {
         'dir'           => $sp,
         'image'         => $species_defs->get_config($sp, 'SPECIES_IMAGE'),
         'status'        => 'live',
         'is_new'        => 0,
         'url'           => $species_defs->get_config($sp, 'SPECIES_URL'),
-        'species_name'  => $species_defs->get_species_name($sp),
+        'species_name'  => $species_name,
         'sci_name'      => $species_defs->get_config($sp, 'SPECIES_SCIENTIFIC_NAME'),
         'prod_name'     => $species_defs->get_config($sp, 'SPECIES_PRODUCTION_NAME'),
         'common_name'   => $species_defs->get_config($sp, 'SPECIES_COMMON_NAME'),

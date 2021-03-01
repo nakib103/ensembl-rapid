@@ -156,7 +156,10 @@ sub format_ftp_url {
   my ($self, $link_type) = @_;
   my $sd  = $self->hub->species_defs;
 
-  my $species = $sd->get_species_name($self->hub->species);
+  my $species = ucfirst($sd->STRAIN_GROUP || $sd->SPECIES_DB_NAME || $sd->SPECIES_PRODUCTION_NAME);
+  ## Remove any assembly accession from chosen name
+  $species =~ s/_gca\d+//;
+  $species =~ s/v\d+$//;
   my $url = sprintf '%s/species/%s/%s', $sd->ENSEMBL_FTP_URL, $species, $sd->ASSEMBLY_ACCESSION;
 
   if ($link_type eq 'dna') {
