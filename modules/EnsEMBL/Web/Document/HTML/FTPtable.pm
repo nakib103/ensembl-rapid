@@ -82,14 +82,8 @@ Each directory on <a href="$ftp" rel="external">$ftp_domain</a> contains a
 
   my $all_species = [];
   foreach ($species_defs->valid_species) {
-    my $species = ucfirst($species_defs->get_config($_, 'STRAIN_GROUP') 
-                        || $species_defs->get_config($_, 'SPECIES_DB_NAME')
-                        || $species_defs->get_config($_, 'SPECIES_PRODUCTION_NAME'));
-    ## Remove any assembly accession from chosen name
-    $species =~ s/_gca\d+//;
-    $species =~ s/v\d+$//;
     push @$all_species, {
-                          'species'   => $species,
+                          'species'   => $species_defs->get_species_name($_),
                           'url'       => $species_defs->get_config($_, 'SPECIES_URL'), 
                           'name'      => $species_defs->get_config($_, 'SPECIES_DISPLAY_NAME'),
                           'assembly'  => $species_defs->get_config($_, 'ASSEMBLY_ACCESSION'),
