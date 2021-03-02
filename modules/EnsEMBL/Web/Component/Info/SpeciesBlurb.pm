@@ -21,6 +21,8 @@ package EnsEMBL::Web::Component::Info::SpeciesBlurb;
 
 use strict;
 
+use EnsEMBL::Web::Utils::UrlFormatting qw(format_ftp_url);
+
 sub page_header {
   my $self      = shift;
   my $hub       = $self->hub;
@@ -96,7 +98,7 @@ sub assembly_text {
 
     $ftp ? sprintf(
       '<p><a href="%s" class="nodeco">%sDownload DNA sequence</a> (FASTA)</p>', ## Link to FTP site
-      $self->format_ftp_url('dna'), sprintf($self->{'icon'}, 'download')
+      format_ftp_url($hub), sprintf($self->{'icon'}, 'download')
     ) : '',
 
     $hub->url({ type => 'UserData', action => 'SelectFile', __clear => 1 }), 
@@ -145,30 +147,11 @@ sub genebuild_text {
 
     $ftp ? sprintf(
       '<p><a href="%s" class="nodeco">%sDownload FASTA, GTF or GFF3</a> files for genes, cDNAs, ncRNA, proteins</p>', ## Link to FTP site
-      $self->format_ftp_url, sprintf($self->{'icon'}, 'download')
+      format_ftp_url($hub, $hub->species, 'geneset'), sprintf($self->{'icon'}, 'download')
     ) : '',
 
     $idm_link
   );
-}
-
-sub format_ftp_url {
-  my ($self, $link_type) = @_;
-  my $sd  = $self->hub->species_defs;
-
-  my $species = $sd->get_species_name($self->hub->species);
-  my $url = sprintf '%s/species/%s/%s', $sd->ENSEMBL_FTP_URL, $species, $sd->ASSEMBLY_ACCESSION;
-
-  if ($link_type eq 'dna') {
-    $url .= '/genome/';
-  }
-  else {
-    my $geneset = $sd->LAST_GENESET_UPDATE;
-    $geneset    =~ s/-/_/g;
-    $url       .= sprintf '/geneset/%s/', $geneset;
-  }
-
-  return $url;
 }
 
 1;
