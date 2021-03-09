@@ -26,13 +26,10 @@ sub get_species_name {
 ## Get the name of a species and remove any GCA from the end
   my ($self, $species) = @_;
 
-  ## Order of meta keys, as decided by QRP project
-  my $name = ucfirst($self->get_config($species, 'STRAIN_GROUP')
-                        || $self->get_config($species, 'SPECIES_DB_NAME')
-                        || $self->get_config($species, 'SPECIES_PRODUCTION_NAME'));
-  ## Remove any assembly accession from chosen name
-  $name =~ s/_gca\d+//;
-  $name =~ s/v\d+$//;
+  my $name = $self->get_config($species, 'SPECIES_DISPLAY_NAME');
+  ## Regexes copied from Bio::EnsEMBL::Production::Pipeline::FileDump::Base
+  $name =~ s/^([\w ]+) [\-\(].+/$1/;
+  $name =~ s/ /_/g;
 
   return $name;
 }
