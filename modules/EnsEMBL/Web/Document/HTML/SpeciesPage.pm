@@ -24,6 +24,7 @@ package EnsEMBL::Web::Document::HTML::SpeciesPage;
 use strict;
 
 use EnsEMBL::Web::Document::Table;
+use EnsEMBL::Web::Utils::UrlFormatting qw(format_ftp_url);
 use EnsEMBL::Web::Utils::FormatText qw(glossary_helptip);
 
 use base qw(EnsEMBL::Web::Document::HTML);
@@ -43,19 +44,13 @@ sub render {
   my %species;
 
   foreach my $sp (@valid_species) {
-    my $species_name = ucfirst($species_defs->get_config($sp, 'STRAIN_GROUP')
-                        || $species_defs->get_config($sp, 'SPECIES_DB_NAME')
-                        || $species_defs->get_config($sp, 'SPECIES_PRODUCTION_NAME'));
-    ## Remove any assembly accession from chosen name
-    $species_name =~ s/_gca\d+//;
-    $species_name =~ s/v\d+$//;
     my $info    = {
         'dir'           => $sp,
         'image'         => $species_defs->get_config($sp, 'SPECIES_IMAGE'),
         'status'        => 'live',
         'is_new'        => 0,
         'url'           => $species_defs->get_config($sp, 'SPECIES_URL'),
-        'species_name'  => $species_name,
+        'species_name'  => $species_defs->get_species_name($sp),
         'sci_name'      => $species_defs->get_config($sp, 'SPECIES_SCIENTIFIC_NAME'),
         'prod_name'     => $species_defs->get_config($sp, 'SPECIES_PRODUCTION_NAME'),
         'common_name'   => $species_defs->get_config($sp, 'SPECIES_COMMON_NAME'),
@@ -117,16 +112,12 @@ sub render {
     }
 
     ## FTP links
-    my $ftp         = $species_defs->ENSEMBL_FTP_URL;
-    my $sub_dir     = sprintf 'species/%s/%s', $info->{'species_name'}, $info->{'accession'};
     my $databases   = $species_defs->get_config($info->{'url'}, 'databases');
-    my $geneset     = $species_defs->get_config($info->{'url'}, 'LAST_GENESET_UPDATE');
-    $geneset        =~ s/-/_/g;
 
-    my $annotation  = sprintf('<a rel="external" href="%s/%s/geneset/%s/">FASTA/GTF/GFF3/TSV</a>', $ftp, $sub_dir, $geneset);
-    my $genome      = sprintf('<a rel="external" href="%s/%s/genome/">FASTA</a>', $ftp, $sub_dir);
+    my $annotation  = sprintf('<a rel="external" href="%s">FASTA/GTF/GFF3/TSV</a>', format_ftp_url($hub, $dir, 'geneset'));
+    my $genome      = sprintf('<a rel="external" href="%s">FASTA</a>', format_ftp_url($hub, $dir));
     my $rnaseq      = $databases->{'DATABASE_RNASEQ'} 
-                        ? sprintf('<a rel="external" href="%s/%s/rnaseq/">BAM</a>', $ftp, $sub_dir)
+                        ? sprintf('<a rel="external" href="%s">BAM</a>', format_ftp_url($hub, $dir, 'rnaseq'))
                         : '';
 
     $table->add_row({

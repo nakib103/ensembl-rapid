@@ -1,5 +1,6 @@
 accipiter_gentilis
 acipenser_ruthenus
+acomys_cahirinus_gca004027535v1
 actinia_equina_gca011057435
 ailuropoda_melanoleuca
 alouatta_palliata_gca004027835v1
@@ -54,6 +55,8 @@ clytia_hemisphaerica_gca902728285
 corvus_moneduloides
 corvus_moneduloides_gca009650955v1
 cottoperca_gobio_gca900634415v1
+crocuta_crocuta_gca008692635v1
+culter_alburnus_gca009869775v1
 cyclopterus_lumpus
 cygnus_atratus
 daubentonia_madagascariensis_gca004027145v1
@@ -61,6 +64,7 @@ delphinapterus_leucas_bristolbay
 delphinapterus_leucas_cookinlet
 denticeps_clupeoides_gca900700375v1
 denticeps_clupeoides_gca900700375v2
+desmodus_rotundus_gca002940915v1
 drosophila_melanogaster
 echeneis_naucrates_gca900747795v2
 electrophorus_electricus
@@ -90,6 +94,7 @@ harpagifer_antarcticus
 hippopotamus_amphibius
 hipposideros_armiger
 hipposideros_galeritus_gca004027415v1
+hirundo_rustica_gca015227805v1
 hylobates_moloch
 labeo_catla
 lagenorhynchus_obliquidens
@@ -115,6 +120,8 @@ meriones_unguiculatus_gca004026785v1
 mirounga_leonina
 molothrus_ater
 monodon_monoceros
+mus_minutoides_gca902729475v1
+mus_minutoides_gca902729485v1
 mustela_putorius
 myodes_glareolus
 myripristis_murdjan_gca902150065v1
@@ -149,6 +156,7 @@ psammomys_obesus_gca002215935v2
 pseudochaenichthys_georgianus
 pseudoliparis_sp_yaptrenchyaptrench
 pteropus_giganteus
+rattus_norvegicus_gca015227675v2
 rhizomys_pruinosus
 rousettus_aegyptiacus
 salarias_fasciatus_gca902148845v1
