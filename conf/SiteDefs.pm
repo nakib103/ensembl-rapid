@@ -29,6 +29,7 @@ sub update_conf {
   $SiteDefs::NO_VARIATION             = 1;
   $SiteDefs::NO_COMPARA               = 1;
   $SiteDefs::ENSEMBL_MART_ENABLED     = 0;
+  $SiteDefs::ENSEMBL_VR_ENABLED       = 0;
 
   $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
 
