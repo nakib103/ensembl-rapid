@@ -26,19 +26,21 @@ use warnings;
 
 use parent qw(EnsEMBL::Web::Document::Element);
 
+use previous qw(links);
+
 sub links {
   my $self  = shift;
-  my $hub   = $self->hub;
-  my $sd    = $self->species_defs;
-  my $blog  = $sd->ENSEMBL_BLOG_URL;
-  my @links;
+  my $links = $self->PREV::links(@_);
 
-  push @links, 'download',      '<a class="constant" rel="nofollow" href="/info/data/">Downloads</a>';
-  push @links, 'documentation', '<a class="constant" rel="nofollow" href="/info/">Help &amp; Docs</a>';
-  push @links, 'known_bugs',  '<a class="constant" rel="nofollow" href="/info/data/known_bugs.html">Known Bugs</a>';
-  push @links, 'blog',          qq(<a class="constant" target="_blank" href="$blog">Blog</a>) if $blog;
+  ## Aim to place this link before the one to the blog
+  my $last_link = pop @$links;
+  my $last_key = pop @$links;
 
-  return \@links;
+  push @$links, 'known_bugs',  '<a class="constant" rel="nofollow" href="/info/data/known_bugs.html">Known Bugs</a>';
+
+  push @$links, $last_key, $last_link;
+
+  return $links;
 }
 
 
