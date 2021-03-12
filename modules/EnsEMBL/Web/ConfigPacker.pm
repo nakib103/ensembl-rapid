@@ -36,6 +36,7 @@ sub munge_databases_multi {
   my $self = shift;
   $self->_summarise_website_db;
   $self->_summarise_go_db;
+  $self->_summarise_compara_db('compara_pan_ensembl', 'DATABASE_COMPARA_PAN_ENSEMBL');
 }
 
 sub _summarise_compara_db {
@@ -60,24 +61,30 @@ sub _summarise_compara_db {
   my %valid_species = map { $_ => 1 } keys %{$self->full_tree};
 
   my %sections = (
-    ENSEMBL_HOMOLOGUES => 'GENE',
   );
 
   my $res_aref = $dbh->selectall_arrayref(qq{
-    select ml.type, gd.name, gd.name, count(*) as count
-      from method_link_species_set as mls, method_link as ml, species_set as ss, genome_db as gd 
-      where mls.species_set_id = ss.species_set_id and
-        ss.genome_db_id = gd.genome_db_id and
-        mls.method_link_id = ml.method_link_id and
-        ml.type not like '%PARALOGUES'
-      group by mls.method_link_species_set_id, mls.method_link_id
-      having count = 1
+    select ml.type, gd1.name, gd2.name
+      from genome_db gd1, genome_db gd2, species_set ss1, species_set ss2,
+       method_link ml, method_link_species_set mls1,
+       method_link_species_set mls2
+     where mls1.method_link_species_set_id = mls2.method_link_species_set_id and
+       ml.method_link_id = mls1.method_link_id and
+       ml.method_link_id = mls2.method_link_id and
+       gd1.genome_db_id != gd2.genome_db_id and
+       mls1.species_set_id = ss1.species_set_id and
+       mls2.species_set_id = ss2.species_set_id and
+       ss1.genome_db_id = gd1.genome_db_id and
+       ss2.genome_db_id = gd2.genome_db_id
   });
 
+  #use Data::Dumper;
+  #$Data::Dumper::Sortkeys = 1;
   foreach my $row (@$res_aref) {
     my $key = $sections{uc $row->[0]} || uc $row->[0];
     my ($species1, $species2) = ($row->[1], $row->[2]);
     $self->db_tree->{$db_name}{$key}{$species1}{$species2} = $valid_species{$species2};
+    #warn ">>> FOUND $key: ".Dumper($self->db_tree->{$db_name}{$key});
   }
 
   $dbh->disconnect;
