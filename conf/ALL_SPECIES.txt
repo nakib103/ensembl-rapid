@@ -29,6 +29,7 @@ bos_gaurus
 bos_mutus_datongyak
 bubalus_bubalis
 bubo_bubo
+bufo_gargarizans_gca014858855v1
 buteo_japonicus
 cairina_moschata_domestica
 cajanus_cajan_gca000340665v1
@@ -97,6 +98,7 @@ hipposideros_galeritus_gca004027415v1
 hirundo_rustica_gca015227805v1
 hylobates_moloch
 labeo_catla
+lacerta_agilis_gca009819535v1
 lagenorhynchus_obliquidens
 lemur_catta_gca004024665v1
 leptobrachium_leishanense
@@ -159,6 +161,7 @@ pteropus_giganteus
 rattus_norvegicus_gca015227675v2
 rhizomys_pruinosus
 rousettus_aegyptiacus
+saimiri_boliviensis_gca016699345v1
 salarias_fasciatus_gca902148845v1
 salmo_trutta_gca901001165v1
 sander_lucioperca
@@ -184,6 +187,7 @@ thamnophis_elegans
 thunnus_orientalis
 thymallus_thymallus
 trachinotus_ovatus
+trachurus_trachurus_gca905171665v1
 trachypithecus_francoisi
 trachypithecus_francoisi_black
 tragelaphus_strepsiceros
