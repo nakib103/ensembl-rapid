@@ -40,7 +40,10 @@ camelus_ferus_gca009834535v1
 canis_lupus_familiarisgermanshepherd
 canis_lupus_gca000002285v4
 canis_lupus_gca004886185v1
+canis_lupus_gca004886185v2
 canis_lupus_gca005444595v1
+canis_lupus_gca008641055v3
+canis_lupus_gca011100685v1
 canis_lupus_gca014441545v1
 capra_hircus_blackbengal
 capra_hircus_sanclemente
@@ -51,6 +54,7 @@ cavia_tschudii_gca004027695v1
 cervus_hanglu_yarkandensis
 cheirogaleus_medius_gca004024725v1
 chiroxiphia_lanceolata_gca009829145v1
+choloepus_didactylus_gca015220235v1
 chrysemys_picta
 clytia_hemisphaerica_gca902728285
 corvus_moneduloides
@@ -158,6 +162,7 @@ psammomys_obesus_gca002215935v2
 pseudochaenichthys_georgianus
 pseudoliparis_sp_yaptrenchyaptrench
 pteropus_giganteus
+pygocentrus_nattereri_gca015220715v1
 rattus_norvegicus_gca015227675v2
 rhizomys_pruinosus
 rousettus_aegyptiacus
