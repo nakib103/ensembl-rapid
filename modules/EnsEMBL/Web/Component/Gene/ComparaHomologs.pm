@@ -36,12 +36,13 @@ sub content {
   my $species_defs = $hub->species_defs;
   my $availability = $object->availability;
 
+  ## N.B. we match both 'homolog_bbh' and 'homolog_rbbh' - each gene should match one or the other
   my @homologues = (
-    $object->get_homology_matches('ENSEMBL_HOMOLOGUES', 'homolog_bbh', undef, 'compara'),
+    $object->get_homology_matches('ENSEMBL_HOMOLOGUES', 'homolog', undef, 'compara'),
   );
-  #use Data::Dumper; 
-  #$Data::Dumper::Maxdepth = 2;
-  #warn ">>> FOUND HOMOLOGUES: ".Dumper(\@homologues);
+  use Data::Dumper; 
+  $Data::Dumper::Maxdepth = 4;
+  warn ">>> FOUND HOMOLOGUES: ".Dumper(\@homologues);
 
   my ($html, $columns, @rows);
 
@@ -53,6 +54,27 @@ sub content {
       {key => 'query',  title => 'Query identity', align => 'left', width => '10%', sort => 'html'},
       {key => 'target', title => 'Target identity', align => 'left', width => '10%', sort => 'html'},
     ];
+  
+  my %homologue_list;
+
+  foreach my $homology_type (@homologues) {
+    foreach my $species (keys %$homology_type) {
+      $homologue_list{$species} = {%{$homologue_list{$species}||{}}, %{$homology_type->{$species}}};
+    }
+  }
+  
+  foreach my $species (sort { ($a =~ /^<.*?>(.+)/ ? $1 : $a) cmp ($b =~ /^<.*?>(.+)/ ? $1 : $b) } keys %homologue_list) {
+    foreach my $stable_id (sort keys %{$homologue_list{$species}}) {
+      my $homologue = $homologue_list{$species}{$stable_id};
+
+      push @rows, {
+        'type'    => $homologue->{'homology_desc'},
+        'query'   => $homologue->{'query_perc_id'}, 
+        'target'  => $homologue->{'target_perc_id'}, 
+      }
+
+    }
+  }
 
   $html .= $self->new_table($columns, \@rows)->render;
 
