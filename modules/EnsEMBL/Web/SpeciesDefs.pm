@@ -28,7 +28,7 @@ sub get_species_name {
 
   my $name = $self->get_config($species, 'SPECIES_DISPLAY_NAME');
   ## Regexes copied from Bio::EnsEMBL::Production::Pipeline::FileDump::Base
-  $name =~ s/^([\w ]+) [\-\(].+/$1/;
+  $name =~ s/^([\w ]+) ?[\-\(].+/$1/;
   $name =~ s/ /_/g;
 
   return $name;
