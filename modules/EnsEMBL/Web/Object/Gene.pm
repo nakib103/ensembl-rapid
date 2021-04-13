@@ -37,16 +37,18 @@ sub get_homologues {
 
   foreach my $homology (@$homologies) {
     #use Data::Dumper;
+    #$Data::Dumper::Sortkeys = 1;
     #$Data::Dumper::Maxdepth = 2;
     #warn "\n>>> HOMOLOGY ".Dumper($homology);
     my ($reference, $query_perc_id, $target_perc_id);
+    #warn "\n\n....................";
 
     foreach my $member (@{$homology->get_all_Members}) {
-      if ($member->stable_id eq $self->stable_id) {
+      #warn Dumper($member);
+      if ($member->genome_db->name eq $self->hub->species_defs->SPECIES_PRODUCTION_NAME) {
         $query_perc_id = $member->perc_id || 0;
       }
       else {
-        #warn Dumper($member);
         $reference  = $member->gene_member;
         $target_perc_id = $member->perc_id || 0;
       }

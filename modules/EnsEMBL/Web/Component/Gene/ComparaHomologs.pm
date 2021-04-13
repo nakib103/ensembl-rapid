@@ -64,7 +64,7 @@ sub content {
     my ($url, $division) = @{$lookup->{$reference->genome_db->name}||[]};
     my $version = $reference->genome_db->first_release;
     my $href    = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
-                    $division eq 'www' ? "e$version.archive" : $division,
+                    $division eq 'www' ? "e$version" : $division,
                     $url, $reference->stable_id, $reference->stable_id;
 
     push @rows, {
