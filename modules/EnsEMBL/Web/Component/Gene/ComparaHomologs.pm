@@ -37,42 +37,43 @@ sub content {
   my $availability = $object->availability;
 
   ## N.B. we match both 'homolog_bbh' and 'homolog_rbbh' - each gene should match one or the other
-  my @homologues = (
-    $object->get_homology_matches('ENSEMBL_HOMOLOGUES', 'homolog', undef, 'compara'),
-  );
-  use Data::Dumper; 
-  $Data::Dumper::Maxdepth = 4;
-  warn ">>> FOUND HOMOLOGUES: ".Dumper(\@homologues);
+  my $homologues = $object->get_homologues('ENSEMBL_HOMOLOGUES', 'homolog');
+  #use Data::Dumper; 
+  #$Data::Dumper::Sortkeys = 1;
+  #$Data::Dumper::Maxdepth = 2;
 
   my ($html, $columns, @rows);
 
   $columns = [
-      {key => 'ref',    title => 'Reference species', align => 'left', width => '30%', sort => 'html'},
+        {key => 'ref',    title => 'Reference species', align => 'left', width => '30%', sort => 'html'},
       {key => 'type',   title => 'Type', align => 'left', width => '10%', sort => 'html'},
       {key => 'hs_id',  title => 'Homologue stable id', align => 'left', width => '20%', sort => 'html'},
       {key => 'gene',   title => 'Homologue gene name', align => 'left', width => '20%', sort => 'html'},
       {key => 'query',  title => 'Query identity', align => 'left', width => '10%', sort => 'html'},
       {key => 'target', title => 'Target identity', align => 'left', width => '10%', sort => 'html'},
     ];
-  
-  my %homologue_list;
+ 
+  my $lookup = $self->hub->species_defs->multi_val('REFERENCE_LOOKUP');
+ 
+  foreach my $species (sort keys %$homologues) { 
+    my $homologue = $homologues->{$species};
+    #warn ">>> HOMOLOGUE ".Dumper($homologue);
+    my $reference = $homologue->{'reference'};
 
-  foreach my $homology_type (@homologues) {
-    foreach my $species (keys %$homology_type) {
-      $homologue_list{$species} = {%{$homologue_list{$species}||{}}, %{$homology_type->{$species}}};
-    }
-  }
-  
-  foreach my $species (sort { ($a =~ /^<.*?>(.+)/ ? $1 : $a) cmp ($b =~ /^<.*?>(.+)/ ? $1 : $b) } keys %homologue_list) {
-    foreach my $stable_id (sort keys %{$homologue_list{$species}}) {
-      my $homologue = $homologue_list{$species}{$stable_id};
+    ## Link out to relevant site
+    my ($url, $division) = @{$lookup->{$reference->genome_db->name}||[]};
+    my $version = $reference->genome_db->first_release;
+    my $href    = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
+                    $division eq 'www' ? "e$version.archive" : $division,
+                    $url, $reference->stable_id, $reference->stable_id;
 
-      push @rows, {
-        'type'    => $homologue->{'homology_desc'},
-        'query'   => $homologue->{'query_perc_id'}, 
-        'target'  => $homologue->{'target_perc_id'}, 
-      }
-
+    push @rows, {
+      'ref'     => $species,
+      'hs_id'   => $href,
+      'gene'    => $reference->display_label, 
+      'type'    => $homologue->{'description'},
+      'query'   => $homologue->{'query_perc_id'}.' %', 
+      'target'  => $homologue->{'target_perc_id'}.' %', 
     }
   }
 

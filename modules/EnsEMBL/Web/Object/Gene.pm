@@ -20,90 +20,47 @@ limitations under the License.
 package EnsEMBL::Web::Object::Gene;
 
 
-sub get_homology_matches {
+sub get_homologues {
   my $self = shift;
 
   my $homology_source = 'ENSEMBL_HOMOLOGUES';
   my $homology_description = 'homolog';
-  my $key = "$homology_source::$homology_description";
   
+  my ($homologies, $classification, $query_member) = $self->get_homologies($homology_source, $homology_description, 'compara');
+
   my $desc_mapping = {
                       'homolog_bbh'   => 'BH',
                       'homolog_rbbh'  => 'RBH',
                       };
 
-  if (!$self->{'homology_matches'}{$key}) {
-    my $homologues = $self->fetch_homology_species_hash($homology_source, $homology_description);
-  
-    return $self->{'homology_matches'}{$key} = {} unless keys %$homologues;
-
-    my $gene         = $self->Obj;
-    my $geneid       = $gene->stable_id;
-    my $adaptor_call = $self->param('gene_adaptor') || 'get_GeneAdaptor';
-    my %homology_list;
-
-    foreach my $display_spp (keys %$homologues) {
-      my $order = 0;
-
-      foreach my $homology (@{$homologues->{$display_spp}}) {
-        my ($homologue, $homology_desc, $query_perc_id, $target_perc_id, $homology_id) = @$homology;
-
-        next unless $homology_desc =~ /$homology_description/;
-
-        $homology_list{$display_spp}{$homologue->stable_id} = {
-            homologue           => $homologue,
-            homology_desc       => $desc_mapping->{$homology_desc},
-            query_perc_id       => $query_perc_id || 0,
-            target_perc_id      => $target_perc_id || 0,
-            order               => $order,
-          };   
-        $order++;
-      }
-    }
-    $self->{'homology_matches'}{$key} = \%homology_list;
-  }
-  return $self->{'homology_matches'}{$key};
-}
-
-sub fetch_homology_species_hash {
-  my ($self, $homology_source, $homology_description) = @_;
-
-  my ($homologies, $classification, $query_member) = $self->get_homologies($homology_source, $homology_description, 'compara');
-  warn "@@@ HOMOLOGIES: ".scalar(@$homologies);
-
-  my $name_lookup = $self->hub->species_defs->production_name_lookup;
-  my %homologues;
+  my $homologues = {};
 
   foreach my $homology (@$homologies) {
-    warn ">>> HOMOLOGY $homology";
-    my ($query_perc_id, $target_perc_id, $genome_db_name, $target_member);
-
-    my $mlss = $homology->method_link_species_set;
-    my $spp  = $mlss->species_set->genome_dbs;
-    warn ">>> SPECIES @$spp";
-    my $species;
-
-    foreach (@{$spp||[]}) {
-      warn "... GENOME ".$_->name;
-      if ($_->name ne $self->hub->species_defs->SPECIES_PRODUCTION_NAME) {
-        $species = $_->name;
-      }
-    }
-    warn "!!! HOMOLOGOUS SPECIES: $species";
+    #use Data::Dumper;
+    #$Data::Dumper::Maxdepth = 2;
+    #warn "\n>>> HOMOLOGY ".Dumper($homology);
+    my ($reference, $query_perc_id, $target_perc_id);
 
     foreach my $member (@{$homology->get_all_Members}) {
-      $target_member  = $member->gene_member;
-      $target_perc_id = $member->perc_id;
+      if ($member->stable_id eq $self->stable_id) {
+        $query_perc_id = $member->perc_id || 0;
+      }
+      else {
+        #warn Dumper($member);
+        $reference  = $member->gene_member;
+        $target_perc_id = $member->perc_id || 0;
+      }
     }
 
-    my $species_url = $name_lookup->{$species};
-
-    push @{$homologues{$species_url}}, [ $target_member, $homology->description, $query_perc_id, $target_perc_id, $homology->dbID];
+    $homologues->{$reference->genome_db->display_name} = {
+                                'reference'       => $reference, 
+                                'description'     => $desc_mapping->{$homology->description}, 
+                                'query_perc_id'   => $query_perc_id, 
+                                'target_perc_id'  => $target_perc_id
+                              };
   }
 
-  @{$homologues{$_}} = sort { $classification->{$a->[2]} <=> $classification->{$b->[2]} } @{$homologues{$_}} for keys %homologues;
-
-  return \%homologues;
+  return $homologues;
 }
 
 1;
