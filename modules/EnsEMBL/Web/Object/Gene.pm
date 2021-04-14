@@ -28,11 +28,6 @@ sub get_homologues {
   
   my ($homologies, $classification, $query_member) = $self->get_homologies($homology_source, $homology_description, 'compara');
 
-  my $desc_mapping = {
-                      'homolog_bbh'   => 'BH',
-                      'homolog_rbbh'  => 'RBH',
-                      };
-
   my $homologues = {};
 
   foreach my $homology (@$homologies) {
@@ -56,7 +51,7 @@ sub get_homologues {
 
     $homologues->{$reference->genome_db->display_name} = {
                                 'reference'       => $reference, 
-                                'description'     => $desc_mapping->{$homology->description}, 
+                                'description'     => $homology->description, 
                                 'query_perc_id'   => $query_perc_id, 
                                 'target_perc_id'  => $target_perc_id
                               };

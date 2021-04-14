@@ -21,6 +21,8 @@ package EnsEMBL::Web::Component::Gene::ComparaHomologs;
 
 use strict;
 
+use EnsEMBL::Web::Utils::FormatText qw(helptip);
+
 use base qw(EnsEMBL::Web::Component::Gene);
 
 sub _init {
@@ -54,6 +56,10 @@ sub content {
     ];
  
   my $lookup = $self->hub->species_defs->multi_val('REFERENCE_LOOKUP');
+  my $desc_mapping = {
+                      'homolog_bbh'   => ['BH', 'Best BLAST hit'],
+                      'homolog_rbbh'  => ['RBH', 'Reciprocal best BLAST hit'],
+                      };
  
   foreach my $species (sort keys %$homologues) { 
     my $homologue = $homologues->{$species};
@@ -67,13 +73,17 @@ sub content {
                     $division eq 'www' ? "e$version" : $division,
                     $url, $reference->stable_id, $reference->stable_id;
 
+    my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
+    my $q_perc  = sprintf '%.2f%', $homologue->{'query_perc_id'};    
+    my $t_perc  = sprintf '%.2f%', $homologue->{'target_perc_id'};    
+
     push @rows, {
       'ref'     => $species,
       'hs_id'   => $href,
       'gene'    => $reference->display_label, 
-      'type'    => $homologue->{'description'},
-      'query'   => $homologue->{'query_perc_id'}.' %', 
-      'target'  => $homologue->{'target_perc_id'}.' %', 
+      'type'    => $type,
+      'query'   => $q_perc, 
+      'target'  => $t_perc, 
     }
   }
 
