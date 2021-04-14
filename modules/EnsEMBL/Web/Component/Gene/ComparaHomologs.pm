@@ -45,10 +45,10 @@ sub content {
   my ($html, $columns, @rows);
 
   $columns = [
-        {key => 'ref',    title => 'Reference species', align => 'left', width => '30%', sort => 'html'},
-      {key => 'type',   title => 'Type', align => 'left', width => '10%', sort => 'html'},
-      {key => 'hs_id',  title => 'Homologue stable id', align => 'left', width => '20%', sort => 'html'},
+      {key => 'ref',    title => 'Reference species', align => 'left', width => '30%', sort => 'html'},
       {key => 'gene',   title => 'Homologue gene name', align => 'left', width => '20%', sort => 'html'},
+      {key => 'hs_id',  title => 'Homologue stable id', align => 'left', width => '20%', sort => 'html'},
+      {key => 'type',   title => 'Type', align => 'left', width => '10%', sort => 'html'},
       {key => 'query',  title => 'Query identity', align => 'left', width => '10%', sort => 'html'},
       {key => 'target', title => 'Target identity', align => 'left', width => '10%', sort => 'html'},
     ];
@@ -77,7 +77,7 @@ sub content {
     }
   }
 
-  $html .= $self->new_table($columns, \@rows)->render;
+  $html .= $self->new_table($columns, \@rows, { data_table => 1})->render;
 
   return $html;
 }
