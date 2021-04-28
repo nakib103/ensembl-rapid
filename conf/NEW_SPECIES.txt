@@ -1,5 +1,1 @@
-canis_lupus_gca004886185v2
-canis_lupus_gca008641055v3
-canis_lupus_gca011100685v1
-choloepus_didactylus_gca015220235v1
-pygocentrus_nattereri_gca015220715v1
+thamnaconus_septentrionalis_gca009823395v1
