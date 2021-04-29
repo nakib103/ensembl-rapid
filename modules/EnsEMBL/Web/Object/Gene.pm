@@ -35,25 +35,25 @@ sub get_homologues {
     #$Data::Dumper::Sortkeys = 1;
     #$Data::Dumper::Maxdepth = 2;
     #warn "\n>>> HOMOLOGY ".Dumper($homology);
-    my ($reference, $query_perc_id, $target_perc_id);
+    my ($reference, $identity, $coverage);
     #warn "\n\n....................";
 
     foreach my $member (@{$homology->get_all_Members}) {
       #warn Dumper($member);
       if ($member->genome_db->name eq $self->hub->species_defs->SPECIES_PRODUCTION_NAME) {
-        $query_perc_id = $member->perc_id || 0;
+        $identity = sprintf('%.2f', $member->perc_id) || 0;
+        $coverage = sprintf('%.2f', $member->perc_cov) || 0;
       }
       else {
         $reference  = $member->gene_member;
-        $target_perc_id = $member->perc_id || 0;
       }
     }
 
     $homologues->{$reference->genome_db->display_name} = {
-                                'reference'       => $reference, 
-                                'description'     => $homology->description, 
-                                'query_perc_id'   => $query_perc_id, 
-                                'target_perc_id'  => $target_perc_id
+                                'reference'   => $reference, 
+                                'description' => $homology->description, 
+                                'identity'    => $identity, 
+                                'coverage'    => $coverage,
                               };
   }
 

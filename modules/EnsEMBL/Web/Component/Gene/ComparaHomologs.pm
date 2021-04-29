@@ -51,8 +51,8 @@ sub content {
       {key => 'gene',   title => 'Homologue gene name', align => 'left', width => '20%', sort => 'html'},
       {key => 'hs_id',  title => 'Homologue stable id', align => 'left', width => '20%', sort => 'html'},
       {key => 'type',   title => 'Type', align => 'left', width => '10%', sort => 'html'},
-      {key => 'query',  title => 'Query identity', align => 'left', width => '10%', sort => 'html'},
-      {key => 'target', title => 'Target identity', align => 'left', width => '10%', sort => 'html'},
+      {key => 'identity',  title => '% Identity', align => 'left', width => '10%', sort => 'html'},
+      {key => 'coverage', title => '% Coverage', align => 'left', width => '10%', sort => 'html'},
     ];
  
   my $lookup = $self->hub->species_defs->multi_val('REFERENCE_LOOKUP');
@@ -61,7 +61,10 @@ sub content {
                       'homolog_rbbh'  => ['RBH', 'Reciprocal best BLAST hit'],
                       };
  
-  foreach my $species (sort keys %$homologues) { 
+  foreach my $species (sort {
+                          $homologues->{$b}{'identity'} <=> $homologues->{$a}{'identity'}
+                          || $homologues->{$b}{'coverage'} <=> $homologues->{$a}{'coverage'}
+                            } keys %$homologues) { 
     my $homologue = $homologues->{$species};
     #warn ">>> HOMOLOGUE ".Dumper($homologue);
     my $reference = $homologue->{'reference'};
@@ -74,16 +77,14 @@ sub content {
                     $url, $reference->stable_id, $reference->stable_id;
 
     my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
-    my $q_perc  = sprintf '%.2f%', $homologue->{'query_perc_id'};    
-    my $t_perc  = sprintf '%.2f%', $homologue->{'target_perc_id'};    
 
     push @rows, {
-      'ref'     => $species,
-      'hs_id'   => $href,
-      'gene'    => $reference->display_label, 
-      'type'    => $type,
-      'query'   => $q_perc, 
-      'target'  => $t_perc, 
+      'ref'       => $species,
+      'hs_id'     => $href,
+      'gene'      => $reference->display_label, 
+      'type'      => $type,
+      'identity'  => $homologue->{'identity'}, 
+      'coverage'  => $homologue->{'coverage'}, 
     }
   }
 
