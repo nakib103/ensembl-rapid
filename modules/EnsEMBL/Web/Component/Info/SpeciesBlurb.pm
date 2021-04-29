@@ -76,6 +76,17 @@ sub assembly_text {
                   );
   }
 
+  my $provider_html = '';
+  if ($species_defs->ASSEMBLY_PROVIDER_NAME) {
+    my ($name, $url) = ($species_defs->ASSEMBLY_PROVIDER_NAME, $species_defs->ASSEMBLY_PROVIDER_URL);
+    $provider_html = '<h3 class="space-above">Assembly source</h3>';
+    $name = [$name] unless ref $name eq 'ARRAY';
+    $url  = [$url]  unless ref $url  eq 'ARRAY';
+    my @providers = map { $hub->make_link_tag(text => $name->[$_], url => $url->[$_]) } 0 .. scalar @{$name} - 1;
+    $provider_html .= join ', ', @providers if @providers;
+  }
+
+
   my $html = sprintf('
     <div class="homepage-icon">
       %s
@@ -83,7 +94,8 @@ sub assembly_text {
     </div>
     <h2>Genome assembly: %s%s</h2>
     %s
-    <p><a href="%s" class="modal_link nodeco" rel="modal_user_data">%sDisplay your data in %s</a></p>',
+    <p><a href="%s" class="modal_link nodeco" rel="modal_user_data">%sDisplay your data in %s</a></p>
+    %s',
 
     $karyotype,
 
@@ -104,7 +116,8 @@ sub assembly_text {
     $hub->url({ type => 'UserData', action => 'SelectFile', __clear => 1 }), 
 
     sprintf($self->{'icon'}, 'page-user'), 
-    $species_defs->ENSEMBL_SITETYPE
+    $species_defs->ENSEMBL_SITETYPE,
+    $provider_html,
   );
 
   return $html;
