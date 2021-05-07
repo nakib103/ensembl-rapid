@@ -8,6 +8,7 @@ amblyraja_radiata
 ameiurus_melas
 anabas_testudineus
 anabas_testudineus_gca900324465v1
+anableps_anableps_gca014839685v1
 anas_zonorhyncha
 anguilla_anguilla
 anolis_carolinensis_gca000090745v2
