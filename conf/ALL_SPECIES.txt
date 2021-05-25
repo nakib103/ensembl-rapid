@@ -71,6 +71,7 @@ delphinapterus_leucas_cookinlet
 denticeps_clupeoides_gca900700375v1
 denticeps_clupeoides_gca900700375v2
 desmodus_rotundus_gca002940915v1
+digitaria_exilis_gca902859565v1
 drosophila_melanogaster
 echeneis_naucrates_gca900747795v2
 electrophorus_electricus
@@ -211,6 +212,7 @@ verasper_variegatus
 verasper_variegatus_gca013332515v1
 vicugna_pacos_huacaya
 vicugna_vicugna_mensalis
+vigna_unguiculata_gca004118075v1
 vulpes_lagopus
 xenopus_tropicalis_gca000004195v4
 zalophus_californianus
