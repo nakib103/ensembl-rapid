@@ -8,6 +8,7 @@ amblyraja_radiata
 ameiurus_melas
 anabas_testudineus
 anabas_testudineus_gca900324465v1
+anableps_anableps_gca014839685v1
 anas_zonorhyncha
 anguilla_anguilla
 anolis_carolinensis_gca000090745v2
@@ -29,6 +30,7 @@ bos_gaurus
 bos_mutus_datongyak
 bubalus_bubalis
 bubo_bubo
+bufo_gargarizans_gca014858855v1
 buteo_japonicus
 cairina_moschata_domestica
 cajanus_cajan_gca000340665v1
@@ -39,7 +41,10 @@ camelus_ferus_gca009834535v1
 canis_lupus_familiarisgermanshepherd
 canis_lupus_gca000002285v4
 canis_lupus_gca004886185v1
+canis_lupus_gca004886185v2
 canis_lupus_gca005444595v1
+canis_lupus_gca008641055v3
+canis_lupus_gca011100685v1
 canis_lupus_gca014441545v1
 capra_hircus_blackbengal
 capra_hircus_sanclemente
@@ -50,6 +55,7 @@ cavia_tschudii_gca004027695v1
 cervus_hanglu_yarkandensis
 cheirogaleus_medius_gca004024725v1
 chiroxiphia_lanceolata_gca009829145v1
+choloepus_didactylus_gca015220235v1
 chrysemys_picta
 clytia_hemisphaerica_gca902728285
 corvus_moneduloides
@@ -65,6 +71,7 @@ delphinapterus_leucas_cookinlet
 denticeps_clupeoides_gca900700375v1
 denticeps_clupeoides_gca900700375v2
 desmodus_rotundus_gca002940915v1
+digitaria_exilis_gca902859565v1
 drosophila_melanogaster
 echeneis_naucrates_gca900747795v2
 electrophorus_electricus
@@ -97,6 +104,7 @@ hipposideros_galeritus_gca004027415v1
 hirundo_rustica_gca015227805v1
 hylobates_moloch
 labeo_catla
+lacerta_agilis_gca009819535v1
 lagenorhynchus_obliquidens
 lemur_catta_gca004024665v1
 leptobrachium_leishanense
@@ -156,9 +164,11 @@ psammomys_obesus_gca002215935v2
 pseudochaenichthys_georgianus
 pseudoliparis_sp_yaptrenchyaptrench
 pteropus_giganteus
+pygocentrus_nattereri_gca015220715v1
 rattus_norvegicus_gca015227675v2
 rhizomys_pruinosus
 rousettus_aegyptiacus
+saimiri_boliviensis_gca016699345v1
 salarias_fasciatus_gca902148845v1
 salmo_trutta_gca901001165v1
 sander_lucioperca
@@ -180,10 +190,12 @@ taeniopygia_guttata
 taeniopygia_guttata_gca003957565v2
 takifugu_rubripes_gca901000725v2
 thalassophryne_amazonica
+thamnaconus_septentrionalis_gca009823395v1
 thamnophis_elegans
 thunnus_orientalis
 thymallus_thymallus
 trachinotus_ovatus
+trachurus_trachurus_gca905171665v1
 trachypithecus_francoisi
 trachypithecus_francoisi_black
 tragelaphus_strepsiceros
@@ -200,6 +212,7 @@ verasper_variegatus
 verasper_variegatus_gca013332515v1
 vicugna_pacos_huacaya
 vicugna_vicugna_mensalis
+vigna_unguiculata_gca004118075v1
 vulpes_lagopus
 xenopus_tropicalis_gca000004195v4
 zalophus_californianus

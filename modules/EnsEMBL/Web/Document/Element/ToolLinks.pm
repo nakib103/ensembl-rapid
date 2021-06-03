@@ -17,24 +17,31 @@ limitations under the License.
 
 =cut
 
+package EnsEMBL::Web::Document::Element::ToolLinks;
+
+### Generates links in masthead
+
 use strict;
+use warnings;
 
-package EnsEMBL::RapidRelease::SiteDefs;
+use parent qw(EnsEMBL::Web::Document::Element);
 
-sub update_conf {
-  $SiteDefs::ENSEMBL_SUBTYPE          = 'Rapid Release';
-  $SiteDefs::FIRST_RELEASE_VERSION    = 100; ## Don't update this!
-  $SiteDefs::ENSEMBL_RELEASE_DATE = '25 May 2021';
-  $SiteDefs::NO_REGULATION            = 1;
-  $SiteDefs::NO_VARIATION             = 1;
-  $SiteDefs::NO_COMPARA               = 0;
-  $SiteDefs::SINGLE_SPECIES_COMPARA   = 1;
-  $SiteDefs::ENSEMBL_MART_ENABLED     = 0;
-  $SiteDefs::ENSEMBL_VR_ENABLED       = 0;
+use previous qw(links);
 
-  $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
+sub links {
+  my $self  = shift;
+  my $links = $self->PREV::links(@_);
 
-  $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Camarhynchus_parvulus_GCA_902806625.1';
+  ## Aim to place this link before the one to the blog
+  my $last_link = pop @$links;
+  my $last_key = pop @$links;
+
+  push @$links, 'known_bugs',  '<a class="constant" rel="nofollow" href="/info/data/known_bugs.html">Known Bugs</a>';
+
+  push @$links, $last_key, $last_link;
+
+  return $links;
 }
+
 
 1;
