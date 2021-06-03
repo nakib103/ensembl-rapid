@@ -40,9 +40,6 @@ sub content {
 
   ## N.B. we match both 'homolog_bbh' and 'homolog_rbbh' - each gene should match one or the other
   my $homologues = $object->get_homologues('ENSEMBL_HOMOLOGUES', 'homolog');
-  #use Data::Dumper; 
-  #$Data::Dumper::Sortkeys = 1;
-  #$Data::Dumper::Maxdepth = 2;
 
   my ($html, $columns, @rows);
 
@@ -56,6 +53,7 @@ sub content {
     ];
  
   my $lookup = $self->hub->species_defs->multi_val('REFERENCE_LOOKUP');
+
   my $desc_mapping = {
                       'homolog_bbh'   => ['BH', 'Best BLAST hit'],
                       'homolog_rbbh'  => ['RBH', 'Reciprocal best BLAST hit'],
@@ -70,11 +68,11 @@ sub content {
     my $reference = $homologue->{'reference'};
 
     ## Link out to relevant site
-    my ($url, $division) = @{$lookup->{$reference->genome_db->name}||[]};
-    my $version = $reference->genome_db->first_release;
-    my $href    = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
-                    $division eq 'www' ? "e$version" : $division,
-                    $url, $reference->stable_id, $reference->stable_id;
+    my $division  = $lookup->{$reference->genome_db->name}{'division'};
+    my $version   = $reference->genome_db->first_release;
+    my $href      = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
+                      $division eq 'www' ? "e$version" : $division,
+                      $species, $reference->stable_id, $reference->stable_id;
 
     my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
 

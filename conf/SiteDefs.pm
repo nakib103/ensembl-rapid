@@ -35,6 +35,9 @@ sub update_conf {
   $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
 
   $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Camarhynchus_parvulus_GCA_902806625.1';
+
+  ## Compara reference species info
+  $SiteDefs::REFERENCE_LOOKUP_FILE    = $SiteDefs::ENSEMBL_SERVERROOT.'/ensembl-rapid/conf/REFERENCE_LOOKUP.json';
 }
 
 1;
