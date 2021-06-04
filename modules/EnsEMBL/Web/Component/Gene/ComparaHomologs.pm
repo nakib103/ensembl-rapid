@@ -64,15 +64,15 @@ sub content {
                           || $homologues->{$b}{'coverage'} <=> $homologues->{$a}{'coverage'}
                             } keys %$homologues) { 
     my $homologue = $homologues->{$species};
-    #warn ">>> HOMOLOGUE ".Dumper($homologue);
     my $reference = $homologue->{'reference'};
 
     ## Link out to relevant site
     my $division  = $lookup->{$reference->genome_db->name}{'division'};
+    my $sp_url    = $lookup->{$reference->genome_db->name}{'url'};
     my $version   = $reference->genome_db->first_release;
     my $href      = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
                       $division eq 'www' ? "e$version" : $division,
-                      $species, $reference->stable_id, $reference->stable_id;
+                      $sp_url, $reference->stable_id, $reference->stable_id;
 
     my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
 
