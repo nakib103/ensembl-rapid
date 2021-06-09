@@ -34,6 +34,8 @@ sub update_conf {
 
   $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
 
+  ## No need to update this - we override it from FAVOURITES.txt, but the webcode
+  ## throws a hissy fit during server startup if this parameter isn't present
   $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Camarhynchus_parvulus_GCA_902806625.1';
 
   ## Compara reference species info
