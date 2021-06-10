@@ -59,9 +59,11 @@ sub content {
                       'homolog_rbbh'  => ['RBH', 'Reciprocal best BLAST hit'],
                       };
  
+  ## Sort by type first (RBH is better than BH, so reverse-sort) then by descending total % scores
   foreach my $species (sort {
-                          $homologues->{$b}{'identity'} <=> $homologues->{$a}{'identity'}
-                          || $homologues->{$b}{'coverage'} <=> $homologues->{$a}{'coverage'}
+                          $homologues->{$b}{'description'} cmp $homologues->{$a}{'description'}
+                          || (($homologues->{$b}{'identity'} + $homologues->{$b}{'coverage'}) 
+                                <=> ($homologues->{$a}{'identity'} + $homologues->{$a}{'coverage'}))
                             } keys %$homologues) { 
     my $homologue = $homologues->{$species};
     my $reference = $homologue->{'reference'};
