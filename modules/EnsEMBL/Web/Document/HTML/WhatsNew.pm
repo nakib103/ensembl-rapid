@@ -40,22 +40,20 @@ sub render {
 
   if ($total > 0) {
     my $including = $total > 25 ? ', including' : '';
-    $html .= qq(<p>We have $total new species this release$including:</p><ul>);
+    $html .= qq(<p>We have $total new genomes this release$including:</p><ul>);
 
     my $count = 0;
     foreach my $prod_name (sort @$new_species) {
       last if $count == $limit;
       my $species = $lookup->{$prod_name};
-      my $common  = $info->{$species}{'common'};
+      my $display_name  = $info->{$species}{'display_name'};
       my $strain  = $info->{$species}{'strain'};
       if ($strain && $strain !~ /reference/) {
-        $common .= " - $strain";
+        $display_name .= " - $strain";
       }
-      $html .= sprintf '<li><a href="/%s/">%s</a> (%s) - %s</li>', 
+      $html .= sprintf '<li><a href="/%s/">%s</a></li>',
                 $species, 
-                $info->{$species}{'scientific'},
-                $common,
-                $info->{$species}{'assembly_accession'};
+                $display_name;
 
       $count++;
     }
@@ -63,14 +61,14 @@ sub render {
     $html .= '</ul>';
 
     if ($total > $limit) {
-      $html .= '<p><a href="/info/about/species.html">More species</a></p>';
+      $html .= '<p><a href="/info/about/species.html">More genomes</a></p>';
     }
     else {
       $html .= '<p><a href="/info/about/species.html">View all species and download data</a></p>';
     }
   }
   else {
-    $html .= qq(<p>There are no new species this release. <a href="/info/about/species.html">View all species and download data</a></p>);
+    $html .= qq(<p>There are no new genomes this release. <a href="/info/about/species.html">View all species and download data</a></p>);
   }
   return $html;
 }

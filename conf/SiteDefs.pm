@@ -24,7 +24,8 @@ package EnsEMBL::RapidRelease::SiteDefs;
 sub update_conf {
   $SiteDefs::ENSEMBL_SUBTYPE          = 'Rapid Release';
   $SiteDefs::FIRST_RELEASE_VERSION    = 100; ## Don't update this!
-  $SiteDefs::ENSEMBL_RELEASE_DATE = '25 May 2021';
+  $SiteDefs::ENSEMBL_RELEASE_DATE = '25 June 2021';
+  $SiteDefs::RAPID_RELEASE_VERSION = 23;
   $SiteDefs::NO_REGULATION            = 1;
   $SiteDefs::NO_VARIATION             = 1;
   $SiteDefs::NO_COMPARA               = 0;
@@ -33,6 +34,8 @@ sub update_conf {
   $SiteDefs::ENSEMBL_VR_ENABLED       = 0;
 
   $SiteDefs::ENSEMBL_EXTERNAL_SEARCHABLE    = 0;
+
+  $SiteDefs::SPECIES_IMAGE_DIR          = defer { $SiteDefs::ENSEMBL_SERVERROOT.'/ensembl-rapid/'.$SiteDefs::DEFAULT_SPECIES_IMG_DIR };
 
   ## No need to update this - we override it from FAVOURITES.txt, but the webcode
   ## throws a hissy fit during server startup if this parameter isn't present
