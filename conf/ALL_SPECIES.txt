@@ -59,6 +59,7 @@ cheirogaleus_medius_gca004024725v1
 chiroxiphia_lanceolata_gca009829145v1
 choloepus_didactylus_gca015220235v1
 chrysemys_picta
+cimex_lectularius
 clytia_hemisphaerica_gca902728285
 colias_croceus_gca905220415v1
 colias_croceus_gca905220445v1
@@ -94,6 +95,7 @@ falco_tinnunculus
 felis_catus_americanshorthair
 ficedula_albicollis_gca000247815v2
 gadus_morhua
+gallus_gallus_gca000002315v5
 gasterosteus_aculeatus_gca006229185v1
 gasterosteus_aculeatus_gca006232265v1
 gasterosteus_aculeatus_gca006232285v1
@@ -163,6 +165,7 @@ otus_sunia
 ovis_aries_gca000298735v2
 ovis_aries_rambouillet
 pantherophis_guttatus
+papio_anubis_gca008728515v1
 parambassis_ranga_gca900634625v1
 parambassis_ranga_gca900634625v2
 pararge_aegeria_gca905163445v1
@@ -183,6 +186,7 @@ pieris_rapae_gca905147735v1
 pieris_rapae_gca905147795v1
 pipra_filicauda
 poecile_atricapillus
+pongo_abelii_gca002880775v3
 psammomys_obesus_gca002215935v2
 pseudochaenichthys_georgianus
 pseudoliparis_sp_yaptrenchyaptrench
@@ -193,6 +197,7 @@ rhizomys_pruinosus
 rousettus_aegyptiacus
 saimiri_boliviensis_gca016699345v1
 salarias_fasciatus_gca902148845v1
+salmo_salar_gca905237065v2
 salmo_trutta_gca901001165v1
 sander_lucioperca
 sapajus_apella
@@ -208,6 +213,7 @@ sparus_aurata_gca900880675v1
 sphaeramia_orbicularis_gca902148855v1
 strigops_habroptila_gca004027225v1
 strix_occidentalis_caurina
+sus_scrofa_gca000003025v6
 syncerus_caffer
 taeniopygia_guttata
 taeniopygia_guttata_gca003957565v2
