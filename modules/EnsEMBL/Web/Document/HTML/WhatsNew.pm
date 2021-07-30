@@ -47,10 +47,6 @@ sub render {
       last if $count == $limit;
       my $species = $lookup->{$prod_name};
       my $display_name  = $info->{$species}{'display_name'};
-      my $strain  = $info->{$species}{'strain'};
-      if ($strain && $strain !~ /reference/) {
-        $display_name .= " - $strain";
-      }
       $html .= sprintf '<li><a href="/%s/">%s</a></li>',
                 $species, 
                 $display_name;
