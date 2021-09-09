@@ -48,8 +48,8 @@ sub content {
       {key => 'gene',   title => 'Homologue gene name', align => 'left', width => '20%', sort => 'html'},
       {key => 'hs_id',  title => 'Homologue stable id', align => 'left', width => '20%', sort => 'html'},
       {key => 'type',   title => 'Type', align => 'left', width => '10%', sort => 'html'},
-      {key => 'identity',  title => '% Identity', align => 'left', width => '10%', sort => 'html'},
-      {key => 'coverage', title => '% Coverage', align => 'left', width => '10%', sort => 'html'},
+      {key => 'identity',  title => '% Identity', align => 'left', width => '10%', sort => 'numeric'},
+      {key => 'coverage', title => '% Coverage', align => 'left', width => '10%', sort => 'numeric'},
     ];
  
   my $lookup = $self->hub->species_defs->multi_val('REFERENCE_LOOKUP');
