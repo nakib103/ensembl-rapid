@@ -48,8 +48,10 @@ sub get_homologues {
         $reference  = $member->gene_member;
       }
     }
+    my $url = $self->hub->species_defs->production_name_mapping($reference->genome_db->name);
 
     $homologues->{$reference->genome_db->display_name} = {
+                                'url'         => $url,
                                 'reference'   => $reference, 
                                 'description' => $homology->description, 
                                 'identity'    => $identity, 

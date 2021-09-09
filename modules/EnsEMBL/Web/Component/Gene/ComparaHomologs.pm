@@ -70,11 +70,19 @@ sub content {
 
     ## Link out to relevant site
     my $division  = $lookup->{$reference->genome_db->name}{'division'};
-    my $sp_url    = $lookup->{$reference->genome_db->name}{'url'};
     my $version   = $reference->genome_db->first_release;
-    my $href      = sprintf '<a href="https://%s.ensembl.org/%s/Gene/Summary?g=%s">%s</a>', 
-                      $division eq 'www' ? "e$version" : $division,
-                      $sp_url, $reference->stable_id, $reference->stable_id;
+    my ($site, $sp_url);
+    if ($division) {
+      $site = 'https://%s.ensembl.org', $division eq 'www' ? "e$version" : $division;
+      $sp_url    = $lookup->{$reference->genome_db->name}{'url'};
+    }
+    else {
+      $site = '';
+      $sp_url = $homologue->{'url'};
+    }
+    my $site      = $division ? sprintf('https://%s.ensembl.org', $division eq 'www' ? "e$version" : $division)
+                              : '';
+    my $href      = sprintf '<a href="%s/%s/Gene/Summary?g=%s">%s</a>', $site, $sp_url, $reference->stable_id, $reference->stable_id;
 
     my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
 
