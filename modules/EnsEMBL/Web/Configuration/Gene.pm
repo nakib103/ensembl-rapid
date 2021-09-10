@@ -29,7 +29,7 @@ sub modify_tree {
 
   my $seq_node = $self->tree->get_node('Sequence');
  
-  $self->insert_after($seq_node, 'Compara_Homolog', 'Homologues',
+  $self->insert_node_after($seq_node, 'Compara_Homolog', 'Homologues',
     [qw( 
       homologues EnsEMBL::Web::Component::Gene::ComparaHomologs 
     )],
@@ -49,22 +49,5 @@ sub modify_tree {
   $self->delete_node('History');
   
 }
-
-sub insert_after {
-  my ($self, $node, $code, $caption, $components, $options) = @_;
-
-  my $details = {
-    caption    => $caption,
-    components => $components,
-    code       => $code,
-    type       => 'view',
-    %{$options || {}}
-  };
-
-  $details->{'availability'} = 1 if $details->{'type'} =~ /view/ && !defined $details->{'availability'};
-
-  return $self->tree->root->insert_after($self->tree->create_node($code, $details), $node);
-}
-
 
 1;
