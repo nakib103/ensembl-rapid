@@ -26,9 +26,18 @@ use previous qw(modify_tree);
 sub modify_tree {
   my $self   = shift;
   $self->PREV::modify_tree(@_);
+
+  my $seq_node = $self->tree->get_node('Sequence');
+ 
+  $self->insert_node_after($seq_node, 'Compara_Homolog', 'Homologues',
+    [qw( 
+      homologues EnsEMBL::Web::Component::Gene::ComparaHomologs 
+    )],
+    { 'availability' => 'gene database:compara core has_homologs', 'concise' => 'Homologues' }
+  ); 
+
   $self->delete_node('Regulation');
   $self->delete_node('Compara');
-
   $self->delete_node('TranscriptComparison');
   $self->delete_node('Alleles');
   $self->delete_node('SecondaryStructure');
@@ -40,4 +49,5 @@ sub modify_tree {
   $self->delete_node('History');
   
 }
+
 1;
