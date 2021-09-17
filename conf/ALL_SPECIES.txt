@@ -70,12 +70,14 @@ crocuta_crocuta_gca008692635v1
 culter_alburnus_gca009869775v1
 cyclopterus_lumpus
 cygnus_atratus
+cygnus_olor_gca009769625v2
 daubentonia_madagascariensis_gca004027145v1
 delphinapterus_leucas_bristolbay
 delphinapterus_leucas_cookinlet
 denticeps_clupeoides_gca900700375v1
 denticeps_clupeoides_gca900700375v2
 desmodus_rotundus_gca002940915v1
+dicentrarchus_labrax_gca905237075v1
 digitaria_exilis_gca902859565v1
 drosophila_melanogaster
 echeneis_naucrates_gca900747795v2
@@ -93,6 +95,9 @@ falco_cherrug
 falco_peregrinus
 falco_tinnunculus
 felis_catus_americanshorthair
+felis_catus_gca016509475v1
+felis_catus_gca018350155v1
+felis_catus_gca018350175v1
 ficedula_albicollis_gca000247815v2
 gadus_morhua
 gallus_gallus_gca000002315v5
@@ -164,6 +169,8 @@ ornithorhynchus_anatinus_gca004115215v2
 otus_sunia
 ovis_aries_gca000298735v2
 ovis_aries_rambouillet
+panthera_leo_gca018350195v1
+panthera_leo_gca018350215v1
 pantherophis_guttatus
 papio_anubis_gca008728515v1
 parambassis_ranga_gca900634625v1
@@ -248,6 +255,7 @@ verasper_variegatus_gca013332515v1
 vicugna_pacos_huacaya
 vicugna_vicugna_mensalis
 vigna_unguiculata_gca004118075v1
+vitis_vinifera_gca910591555v1
 vulpes_lagopus
 xenopus_tropicalis_gca000004195v4
 zalophus_californianus
