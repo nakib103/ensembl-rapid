@@ -71,6 +71,7 @@ culter_alburnus_gca009869775v1
 cyclopterus_lumpus
 cygnus_atratus
 cygnus_olor_gca009769625v2
+cyprinus_carpio_gca905221575v1
 daubentonia_madagascariensis_gca004027145v1
 delphinapterus_leucas_bristolbay
 delphinapterus_leucas_cookinlet
@@ -181,6 +182,7 @@ passer_domesticus
 periophthalmus_magnuspinnatus
 peromyscus_eremicus_gca902702925v1
 peromyscus_leucopus_gca004664715v1
+phacochoerus_africanus_gca016906955v1
 phoca_vitulina
 phocoena_sinus
 phyllostomus_discolor
