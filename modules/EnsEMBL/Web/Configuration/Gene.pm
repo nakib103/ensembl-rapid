@@ -33,7 +33,7 @@ sub modify_tree {
     [qw( 
       homologues EnsEMBL::Web::Component::Gene::ComparaHomologs 
     )],
-    { 'availability' => 'gene database:compara core has_homologs', 'concise' => 'Homologues' }
+    { 'availability' => 'gene database:compara core', 'concise' => 'Homologues' }
   ); 
 
   $self->delete_node('Regulation');

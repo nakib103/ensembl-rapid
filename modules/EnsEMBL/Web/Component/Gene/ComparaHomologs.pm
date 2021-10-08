@@ -38,6 +38,10 @@ sub content {
   my $species_defs = $hub->species_defs;
   my $availability = $object->availability;
 
+  unless ($availability->{'has_homologs'}) {
+    return '<p>No homologues have been found for this gene.</p>';
+  }
+
   ## N.B. we match both 'homolog_bbh' and 'homolog_rbbh' - each gene should match one or the other
   my $homologues = $object->get_homologues('ENSEMBL_HOMOLOGUES', 'homolog');
 
