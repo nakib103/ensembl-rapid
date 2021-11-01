@@ -147,6 +147,7 @@ mellicta_athalia_gca905220535v1
 mellicta_athalia_gca905220545v1
 melopsittacus_undulatus
 meriones_unguiculatus_gca004026785v1
+mesocricetus_auratus_gca017639785v1
 mirounga_leonina
 molothrus_ater
 monodon_monoceros

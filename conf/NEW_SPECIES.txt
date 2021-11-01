@@ -1,2 +1,1 @@
-cyprinus_carpio_gca905221575v1
-phacochoerus_africanus_gca016906955v1
+mesocricetus_auratus_gca017639785v1
