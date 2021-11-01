@@ -40,7 +40,9 @@ sub render {
 
   if ($total > 0) {
     my $including = $total > 25 ? ', including' : '';
-    $html .= qq(<p>We have $total new genomes this release$including:</p><ul>);
+    my $word      = 'genome';
+    $word .= 's' if $total > 1; 
+    $html .= qq(<p>We have $total new $word this release$including:</p><ul>);
 
     my $count = 0;
     foreach my $prod_name (sort @$new_species) {
