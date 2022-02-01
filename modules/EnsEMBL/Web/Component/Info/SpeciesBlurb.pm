@@ -76,6 +76,12 @@ sub assembly_text {
                   );
   }
 
+  my $other_assemblies = '';
+  my $assembly_dropdown = $self->assembly_dropdown;
+  if ($assembly_dropdown) {
+    $other_assemblies = sprintf '<h3 class="light top-margin">Other assemblies</h3>%s', $assembly_dropdown;
+  }
+
   my $html = sprintf('
     <div class="homepage-icon">
       %s
@@ -83,7 +89,8 @@ sub assembly_text {
     </div>
     <h2>Genome assembly: %s%s</h2>
     %s
-    <p><a href="%s" class="modal_link nodeco" rel="modal_user_data">%sDisplay your data in %s</a></p>',
+    <p><a href="%s" class="modal_link nodeco" rel="modal_user_data">%sDisplay your data in %s</a></p>
+%s',
 
     $karyotype,
 
@@ -104,8 +111,41 @@ sub assembly_text {
     $hub->url({ type => 'UserData', action => 'SelectFile', __clear => 1 }), 
 
     sprintf($self->{'icon'}, 'page-user'), 
-    $species_defs->ENSEMBL_SITETYPE
+    $species_defs->ENSEMBL_SITETYPE,
+    $other_assemblies
   );
+
+  return $html;
+}
+
+sub assembly_dropdown {
+  my $self = shift;
+  my $species_defs = $self->hub->species_defs;
+
+  my @assemblies;
+  my $html = '';
+
+  foreach my $species ($species_defs->valid_species) {
+    next if $species eq $self->hub->species;
+    my $sci_name = $species_defs->get_config($species, 'SPECIES_SCIENTIFIC_NAME');
+
+    if ($sci_name eq $species_defs->SPECIES_SCIENTIFIC_NAME) {
+      push @assemblies, {
+        url   => sprintf('/%s/', $species),
+        name  => $species_defs->get_config($species, 'SPECIES_DISPLAY_NAME'),
+      };
+    }
+  }
+
+  if (scalar @assemblies) {
+    if (scalar @assemblies > 1) {
+      $html .= qq(<form action="#" method="get" class="_redirect"><select name="url">);
+      $html .= qq(<option value="$_->{'url'}">$_->{'name'}</option>) for @assemblies;
+      $html .= '</select> <input type="submit" name="submit" class="fbutton" value="Go" /></form>';
+    } else {
+      $html .= qq(<ul><li><a href="$assemblies[0]{'url'}" class="nodeco">$assemblies[0]{'name'}</a></li></ul>);
+    }
+  }
 
   return $html;
 }
