@@ -19,9 +19,6 @@ limitations under the License.
 
 package EnsEMBL::Web::Document::HTML::WhatsNew;
 
-### This module uses our blog's RSS feed to create a list of headlines
-### Note that the RSS XML is cached to avoid saturating our blog's bandwidth! 
-
 use strict;
 
 use base qw(EnsEMBL::Web::Document::HTML);
