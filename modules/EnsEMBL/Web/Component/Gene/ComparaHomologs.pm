@@ -73,12 +73,13 @@ sub content {
     my $reference = $homologue->{'reference'};
 
     ## Link out to relevant site
-    my $division  = $lookup->{$reference->genome_db->name}{'division'};
-    my $version   = $reference->genome_db->first_release;
+    my $sp_key    = $reference->genome_db->name;
+    my $division  = $lookup->{$sp_key}{'division'};
+    my $version   = $lookup->{$sp_key}{'first_release'};
     my ($site, $sp_url);
     if ($division) {
       $site = 'https://%s.ensembl.org', $division eq 'www' ? "e$version" : $division;
-      $sp_url    = $lookup->{$reference->genome_db->name}{'url'};
+      $sp_url    = $lookup->{$sp_key}{'url'};
     }
     else {
       $site = '';
