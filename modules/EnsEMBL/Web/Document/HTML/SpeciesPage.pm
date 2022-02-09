@@ -90,10 +90,11 @@ sub render {
     my $clade     = $labels{$info->{'clade'}};
 
     my $img_url = '/';
+    my $sp_link    = sprintf('<a href="/%s" class="bigtext"><i>%s</i></a>', 
+                            $dir, $info->{'sci_name'});
     my $strain_name = ($info->{'strain'} && $info->{'strain'} ne 'reference') 
                         ? sprintf(' (%s)', $info->{'strain'}) : '';
-    my $sp_link    = sprintf('<a href="/%s" class="bigtext"><i>%s</i>%s</a>', 
-                            $dir, $info->{'sci_name'}, $strain_name);
+    my $common_name = sprintf('%s%s', $info->{'common_name'}, $strain_name);;
 
     ## Species stats
     my $db_adaptor = $self->hub->database('core', $dir);
@@ -124,7 +125,7 @@ sub render {
       'species'     => sprintf('<a href="%s%s/"><img src="/i/species/%s.png" alt="%s" class="badge-48" style="float:left;padding-right:4px" /></a>%s',
                         $img_url, $dir,  $info->{'image'}, $clade, $sp_link),
       'is_new'      => $info->{'is_new'} ? 'NEW' : '',
-      'common'      => $info->{'common_name'}, 
+      'common'      => $common_name, 
       'clade'       => $clade,
       'taxon_id'    => $info->{'taxon_id'},
       'assembly'    => $info->{'assembly'},
