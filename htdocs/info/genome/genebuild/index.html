@@ -1,0 +1,108 @@
+<h1 id="genome-annotation">Genome annotation</h1>
+<p>This document describes the annotation process of an assembly. The first stage is assembly loading, where databases are prepared and the assembly loaded into the database.</p>
+<p>Figure 1: Flowchart of the protein-coding annotation pipeline. Small ncRNAs, Ig/TR genes, and pseudogenes are computed using separate pipelines.</p>
+
+<h2 id="genome-preparation">Genome preparation</h2>
+<p>The genome phase of the Ensembl gene annotation pipeline involves loading an assembly into the Ensembl core database schema and then running a series of analyses on the loaded assembly to identify an initial set of genomic features. The most important aspect of this phase is identifying repeat features (primarily through RepeatMasker), as soft masking of the genome is used extensively later in the annotation process.</p>
+
+<h3 id="repeat-finding">Repeat finding</h3>
+<p>After the genomic sequence has been loaded into a database, it is screened for sequence patterns including repeats using RepeatMasker [<a href="#f1">1</a>], (version 4.0.5 with parameters <kbd>-nolow -engine &quot;crossmatch&quot;</kbd>), dustmasker [<a href="#f2">2</a>] and TRF [<a href="#f3">3</a>]. In addition to the Repbase [<a href="#f4">4</a>] library, where available, a custom repeat library was used with RepeatMasker. This custom library was created using RepeatModeler [<a href="#f5">5</a>].</p>
+
+<h3 id="low-complexity-features-ab-initio-predictions">Low complexity features, ab initio predictions</h3>
+<p>Transcription start sites are predicted using Eponine–scan [<a href="#f6">6</a>]. CpG islands longer than 400 bases and tRNAs are also predicted. The results of Eponine-scan, CpG [<a href="#f7">7</a>], and tRNAscan [<a href="#f8">8</a>] are for display purposes only; they are not used in the gene annotation process.
+Genscan [<a href="#f9">9</a>] is run across repeat-masked sequence to identify ab initio gene predictions. Genscan predictions are for display purposes only and are not used in the model generation phase.
+ </p>
+<h3 id="protein-coding-model-generation">Protein-Coding model Generation</h3>
+<p>Various sources of transcript and protein data are investigated and used to generate gene models using a variety of techniques. The data and techniques employed to generate models are outlined here. The numbers of gene models generated are described in gene summary.</p>
+<h3 id="species-specific-cdna-and-protein-alignments">Species specific cDNA and protein alignments</h3>
+<p>cDNAs are downloaded from ENA [<a href="#f13">13</a>] and RefSeq [<a href="#f14">14</a>], and aligned to the genome using Exonerate [<a href="#f15">15</a>]. Only known mRNAs are used (NMs). The cDNAs can be used to add UTR to the protein coding transcript models if they have a matching set of introns.
+Proteins are downloaded from UniProt and filtered based on protein existence (PE) at protein level (PE 1) and transcript level (PE 2). The proteins are aligned to the genome using PMATCH to reduce the search space, then with genewise, which is a splice-aware aligner, to generate spliced models.</p>
+<h3 id="projection-mapping-pipeline">Projection mapping pipeline</h3>
+<p>For all species we generated a whole genome alignment against a suitable reference assembly using LastZ [<a href="#f16">16</a>]. A suitable reference assembly would be closely related species with high quality annotation or an Ensembl/GENCODE species, i.e., human or mouse. Syntenic regions identified using this alignment are then used to map protein-coding annotation from the most recent released gene set. We have integrated CESAR 2.0 [<a href="#f17">17</a>] into our pipeline to complement the results of our RNA-seq, cDNA and protein alignment pipelines. CESAR 2.0 is a fast method of mapping exons and genes that can deal with splice sites that have shifted significantly. We found that CESAR 2.0 performs significantly better than our previous mapping code at longer distances.</p>
+<h3 id="protein-to-genome-pipeline">Protein-to-genome pipeline</h3>
+<p>Protein sequences are downloaded from UniProt and aligned to the genome in a splice aware manner using GenBlast [<a href="#f18">18</a>]. The set of proteins aligned to the genome is a subset of UniProt [<a href="#f10">10</a>] proteins used to provide a broad, targeted coverage of the species of interest proteome. Human and mouse proteins PE 1 and 2 would always be used as they are the better annotated of the proteins available in UniProt.</p>
+<p>A cut-off of 50 percent coverage and 30 percent identity and an e-value of e-1 were used for GenBlast with the exon repair option turned on. The top 10 transcript models built by GenBlast for each protein passing the cut-offs are kept.</p>
+<h3 id="rna-seq-pipeline">RNA-seq pipeline</h3>
+<p>Where available, RNA-seq data is downloaded from ENA and used in the annotation. A merged file containing reads from all tissues/samples is created. The merged data is less likely to suffer from model fragmentation due to read depth. The available reads are aligned to the genome using BWA [<a href="#f19">19</a>], with a tolerance of 50 percent mismatch to allow for intron identification via split read alignment. Initial models generated from the BWA alignments are further refined via exonerate. A second set of models to complement the first set was produced with Scallop [<a href="#f26">26</a>] based on read alignment from STAR [<a href="#f25">25</a>]. Protein-coding models are identified via a BLAST alignment of the longest ORF against the UniProt vertebrate PE 1 &amp; 2 data set.</p>
+<p>In the case where multiple tissues/samples are available we create a gene track for each such tissue/sample that can be viewed in the Ensembl browser and queried via the API.</p>
+<h3 id="long-read-transcriptomic-data-pipeline">Long-read transcriptomic data pipeline</h3>
+<p>Where available, long-read transcriptomic data (i.e., IsoSeq or Nanopore) is downloaded from ENA (<a href="https://www.ebi.ac.uk/ena/">https://www.ebi.ac.uk/ena/</a>) and used in the annotation. The long-read data is mapped to the genome using Minimap2 [<a href="#f24">24</a>] with the recommended settings for Iso-Seq and Nanopore data. Due to the high error rate of the Nanopore data, post mapping error correction is applied to maximize the number of usable mappings. Low frequency intron/exon boundaries that are non-canonical are replaced with high frequency boundary coordinates within 50bp. In addition, low frequency potential gaps between adjoining exons are filled in based on high frequency observations of single exons with the same terminal boundary coordinates.</p>
+<h3 id="immunoglobulin-and-t-cell-receptor-genes">Immunoglobulin and T-cell Receptor genes</h3>
+<p>Translations of different human IG gene segments are downloaded from the IMGT database [<a href="#f20">20</a>] and aligned to the genome using GenBlast.
+A cut-off of 80 percent coverage, 70 percent identity and an e-value of e-1 were used for GenBlast with the exon repair option turned on. The top 10 transcript models built by GenBlast for each protein passing the cut-offs are kept.</p>
+<h3 id="selenocysteine-proteins">Selenocysteine proteins</h3>
+<p>We aligned known selenocysteine proteins against the genome using Exonerate. Then we checked that the generated model had a selenocysteine in the same positions as the known protein. We only kept models with at least 90% coverage and 95% identity.</p>
+<h2 id="filtering-the-protein-coding-models">Filtering the protein-coding models</h2>
+<p>The filtering phase decides the subset of protein-coding transcript models, generated from the model-building pipelines, that comprise the final protein-coding gene set. Models are filtered based on information such as what pipeline was used to generate them, how closely related the data are to the target species and how good the alignment coverage and percent identity to the original data are.</p>
+<h3 id="prioritising-models-at-each-locus">Prioritising models at each locus</h3>
+<p>The LayerAnnotation module is used to define a hierarchy of input data sets, from most preferred to least preferred. The output of this pipeline includes all transcript models from the highest ranked input set. Models from lower ranked input sets are included only if their exons do not overlap a model from an input set higher in the hierarchy.
+Note that models cannot exist in more than one layer. For UniProt proteins, models are also separate into clades, to help selection during the layering process. Each UniProt protein is in one clade only, for example mammal proteins are present in the mammal clade and are not present in the vertebrate clade to avoid aligning the proteins multiple times.
+When selecting the model or models kept at each position, we prioritise based on the highest layer with available evidence. In general, the highest layers contain the set of evidence containing the most trustworthy evidence in terms of both alignment/mapping quality, and also in terms of relevance to the species being annotated. So, for example, when a fish is being annotated, well aligned evidence from either the species itself or other closely related vertebrates would be chosen over evidence from more distant species. Regardless of what species is being annotated, well-aligned human proteins are usually included in the top layer as human is the current most complete vertebrate annotation.</p>
+<h3 id="addition-of-utr-to-coding-models">Addition of UTR to coding models</h3>
+<p>The set of coding models is extended into the untranslated regions (UTRs) using RNA-seq data (if available) and alignments of species-specific cDNA sequences. The criteria for adding UTR from cDNA or RNA-seq alignments to protein models lacking UTR (such as the projection models or the protein-to-genome alignment models) is that the intron coordinates from the model missing UTR exactly match a subset of the coordinates from the UTR donor model.</p>
+<h3 id="generating-multi-transcript-genes">Generating multi-transcript genes</h3>
+<p>The above steps generate a large set of potential transcript models, many of which overlap one another. Redundant transcript models are collapsed, and the remaining unique set of transcript models are clustered into multi-transcript genes where each transcript in a gene has at least one coding exon that overlaps a coding exon from another transcript within the same gene.</p>
+<h3 id="pseudogenes">Pseudogenes</h3>
+<p>Pseudogenes are annotated by looking for genes with evidence of frame-shifting or lying in repeat heavy regions. Single exon retro-transposed pseudogenes are identified by searching for a multi-exon equivalent elsewhere in the genome.
+ </p>
+<h2 id="creating-the-final-gene-set">Creating the final gene set</h2>
+<h3 id="small-ncrnas">Small ncRNAs</h3>
+<p>Small structured non-coding genes are added using annotations taken from RFAM [<a href="#f21">21</a>] and miRbase [<a href="#f22">22</a>]. NCBI-BLAST [<a href="#f12">12</a>] was run for these sequences and models built using the Infernal [<a href="#f23">23</a>] software suite.</p>
+<h3 id="cross-referencing">Cross-referencing</h3>
+<p>Before public release the transcripts and translations are given external references (cross-references to external databases). Translations are searched for signatures of interest and labelled where appropriate.</p>
+<h3 id="stable-identifiers">Stable identifiers</h3>
+<p>Stable identifiers are assigned to each gene, transcript, exon and translation. When annotating a species for the first time, these identifiers are auto-generated. In all subsequent annotations for a species, the stable identifiers are propagated based on comparison of the new gene set to the previous gene set.</p>
+<h2 id="appendix-further-information">Appendix - Further information</h2>
+<p>The Ensembl gene set is generated automatically, meaning that gene models are annotated using the Ensembl gene annotation pipeline. The main focus of this pipeline is to generate a conservative set of protein-coding gene models, although non-coding genes and pseudogenes may also be annotated.
+Every gene model produced by the Ensembl gene annotation pipeline is supported by biological sequence evidence (see the “Supporting evidence” link on the left-hand menu of a Gene page or Transcript page); ab initio models are not included in our gene set. Ab initio predictions and the full set of cDNA alignments to the genome are available on our website.</p>
+<p>The quality of a gene set is dependent on the quality of the genome assembly. Genome assembly can be assessed in a number of ways, including:</p>
+<ol>
+<li>Coverage estimates<ul>
+<li>A higher coverage usually indicates a more complete assembly.</li>
+<li>Using Sanger sequencing only, a coverage of at least 2x is preferred.</li>
+</ul>
+</li>
+<li>N50 of contigs and scaffolds<ul>
+<li>A longer N50 usually indicates a more complete genome assembly.</li>
+<li>Bearing in mind that an average human gene may be 10-15 kb in length, contigs shorter than this length will be unlikely to hold full-length gene models.</li>
+</ul>
+</li>
+<li>Number of contigs and scaffolds<ul>
+<li>A lower number of top level sequences usually indicates a more complete genome assembly.</li>
+</ul>
+</li>
+<li>Alignment of cDNAs to the genome<ul>
+<li>A higher number of alignments, using stringent thresholds, usually indicates a more complete genome assembly.</li>
+</ul>
+</li>
+</ol>
+<p>More information on the Ensembl automatic gene annotation process can be found at <b>Aken B et al.</b> The Ensembl gene annotation system. <i>Database</i> 2016. [<a href="#f23">23</a>]</p>
+<h2 id="references">References</h2>
+<ol>
+<li id="f1"><b>Smit, A.F.A., R. Hubley, and P. Green.</b> RepeatMasker Open-4.0. 2013-2015; Available from: <a href="http://www.repeatmasker.org">http://www.repeatmasker.org</a>.</li>
+<li id="f2"><b>Morgulis, A., et al.</b>, A fast and symmetric DUST implementation to mask low-complexity DNA sequences. <i>J Comput Biol</i>, 2006. 13(5): p. 1028-40.</li>
+<li id="f3"><b>Benson, G.</b>, Tandem repeats finder: a program to analyze DNA sequences. <i>Nucleic Acids Res</i>, 1999. 27(2): p. 573-80.</li>
+<li id="f4"><b>Bao, W., K.K. Kojima, and O. Kohany</b>, Repbase Update, a database of repetitive elements in eukaryotic genomes. <i>Mob DNA</i>, 2015. 6: p. 11.</li>
+<li id="f5"><b>Smit, A.F.A. and R. Hubley.</b> RepeatModeler Open-1.0. 2008-2015 Available from: <a href="http://www.repeatmasker.org">http://www.repeatmasker.org</a>.</li>
+<li id="f6"><b>Down, T.A. and T.J. Hubbard</b>, Computational detection and location of transcription start sites in mammalian genomic DNA. <i>Genome Res</i>, 2002. 12(3): p. 458-61.</li>
+<li id="f7"><b>Larsen, F., et al.</b>, CpG islands as gene markers in the human genome. Genomics, 1992. 13(4): p. 1095-107.</li>
+<li id="f8"><b>Lowe, T.M. and S.R. Eddy</b>, tRNAscan-SE: a program for improved detection of transfer RNA genes in genomic sequence. <i>Nucleic Acids Res</i>, 1997. 25(5): p. 955-64.</li>
+<li id="f9"> id="f1"<b>Burge, C. and S. Karlin</b>, Prediction of complete gene structures in human genomic DNA. <i>J Mol Biol</i>, 1997. 268(1): p. 78-94.</li>
+<li id="f10"><b>UniProt Consortium, T.</b>, UniProt: the universal protein knowledgebase. <i>Nucleic Acids Res</i>, 2018. 46(5): p. 2699.</li>
+<li id="f11"><b>Altschul, S.F., et al.</b>, Basic local alignment search tool.  <i>J Mol Biol</i>, 1990. 215(3): p. 403-10.</li>
+<li id="f12"><b>ENA</b>, www.ebi.ac.uk/ena.</li>
+<li id="f13"><b>O&#39;Leary, N.A., et al.</b>, Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional annotation.  <i>Nucleic Acids Res</i>, 2016. 44(D1): p. D733-45.</li>
+<li id="f14"><b>Slater, G.S. and E. Birney</b>, Automated generation of heuristics for biological sequence comparison.  <i>BMC Bioinformatics</i>, 2005. 6: p. 31.</li>
+<li id="f15"><b>Harris, R.S.</b>, Improved pairwise alignment of genomic DNA. 2007.</li>
+<li id="f16"><b>Sharma, V., P. Schwede, and M. Hiller</b>, CESAR 2.0 substantially improves speed and accuracy of comparative gene annotation.  <i>Bioinformatics</i>, 2017. 33(24): p. 3985-3987.</li>
+<li id="f17"><b>She, R., et al.</b>, genBlastG: using BLAST searches to build homologous gene models.  <i>Bioinformatics</i>, 2011. 27(15): p. 2141-3.</li>
+<li id="f18"><b>Li, H. and R. Durbin</b>, Fast and accurate short read alignment with Burrows-Wheeler transform.  <i>Bioinformatics</i>, 2009. 25(14): p. 1754-60.</li>
+<li id="f19"><b>Lefranc, M.P., et al.</b>, IMGT(R), the international ImMunoGeneTics information system(R) 25 years on.  <i>Nucleic Acids Res</i>, 2015. 43(Database issue): p. D413-22.</li>
+<li id="f20"><b>Nawrocki, E.P., et al.</b>, Rfam 12.0: updates to the RNA families database.  <i>Nucleic Acids Res</i>, 2015. 43(Database issue): p. D130-7.</li>
+<li id="f21"><b>Griffiths-Jones, S., et al.</b>, miRBase: microRNA sequences, targets and gene nomenclature.  <i>Nucleic Acids Res</i>, 2006. 34(Database issue): p. D140-4.</li>
+<li id="f22"><b>Nawrocki, E.P. and S.R. Eddy</b>, Infernal 1.1: 100-fold faster RNA homology searches.  <i>Bioinformatics</i>, 2013. 29(22): p. 2933-5.</li>
+<li id="f23"><b>Aken, B.L., et al.</b>, The Ensembl gene annotation system.  <i>Database</i> (Oxford), 2016. 2016.</li>
+<li id="f24"><b>Li, H.</b> Minimap2: pairwise alignment for nucleotide sequences.  <i>Bioinformatics</i>, 2018. 34:3094-3100.</li>
+<li id="f25"><b>Alexander Dobin, Carrie A. Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski, Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R. Gingeras</b>, STAR: ultrafast universal RNA-seq aligner,  <i>Bioinformatics</i>, Volume 29, Issue 1, January 2013, Pages 15–21, <a href="https://doi.org/10.1093/bioinformatics/bts635">https://doi.org/10.1093/bioinformatics/bts635</a></li>
+<li id="f26"><b>Shao, M., Kingsford, C.</b> Accurate assembly of transcripts through phase-preserving graph decomposition.  <i>Nat Biotechnol 35</i>, 1167–1169 (2017). <a href="https://doi.org/10.1038/nbt.4020">https://doi.org/10.1038/nbt.4020</a></li>
+</ol>
