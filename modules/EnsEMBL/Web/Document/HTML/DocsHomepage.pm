@@ -39,9 +39,9 @@ eukaryotic species, and makes this information freely available online.</p>
   }
 
   unless ($sd->NO_COMPARA) {
-#   $annotation .= qq(
-#<li><a href="/info/genome/compara/">Comparative genomics</a></li>
-#   );
+   $annotation .= qq(
+<li><a href="/info/genome/compara/">Comparative genomics</a></li>
+   );
   }
 
   unless ($sd->NO_REGULATION) {
