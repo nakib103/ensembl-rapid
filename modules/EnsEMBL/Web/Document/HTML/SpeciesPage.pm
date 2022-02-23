@@ -77,6 +77,7 @@ sub render {
 
   my $columns = $self->table_columns();
   my $table = EnsEMBL::Web::Document::Table->new($columns, [], { data_table => 1, exportable => 1 });
+  $table->{'options'}{'data_table_config'} = {iDisplayLength => 25};
   $table->code        = 'SpeciesTable::99';
   
   $table->filename = 'Species';
