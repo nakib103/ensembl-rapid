@@ -42,6 +42,8 @@ sub update_conf {
   ## throws a hissy fit during server startup if this parameter isn't present
   $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Camarhynchus_parvulus_GCA_902806625.1';
 
+  $SiteDefs::ENSEMBL_TAXONOMY_DIVISION_FILE = $SiteDefs::ENSEMBL_SERVERROOT.'/ensembl-rapid/conf/rr_divisions.json';
+
   ## Compara reference species info
   $SiteDefs::REFERENCE_LOOKUP_FILE    = $SiteDefs::ENSEMBL_SERVERROOT.'/ensembl-rapid/conf/REFERENCE_LOOKUP.json';
 }
