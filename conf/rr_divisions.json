@@ -1,0 +1,31 @@
+[{"taxon": "Mammalia", "label": "Mammals",
+    "children": [
+      {"taxon": "Homo", "label": "Human"},
+      {"taxon": "Primates", "label": "Other primates"},
+      {"taxon": "Euarchontoglires", "label": "Rodents & lagomorphs"},
+      {"taxon": "other_mammals", "label": "Other mammals"}
+    ]
+  },
+  {"taxon": "Vertebrata", "label": "Other vertebrates",
+    "children": [
+      {"taxon": "Aves", "label": "Birds"},
+      {"taxon": "Sauropsida", "label": "Reptiles"},
+      {"taxon": "Tetrapoda", "label": "Amphibians"},
+      {"taxon": "other_vertebrates", "label": "Fish"}
+    ]
+  },
+  {"taxon": "Arthropoda", "label": "Arthropods",
+    "children": [
+      {"taxon": "Coleoptera"},
+      {"taxon": "Diptera"},
+      {"taxon": "Hemiptera"},
+      {"taxon": "Hymenoptera"},
+      {"taxon": "Lepidoptera"},
+      {"taxon": "Hexapoda", "label": "Other insects"},
+      {"taxon": "other_arthropods", "label": "Other arthropods"},
+
+    ]
+  },
+  {"taxon": "Animalia", "label": "Other animals"},
+  {"taxon": "Viridiplantae", "label": "Plants"},
+]
