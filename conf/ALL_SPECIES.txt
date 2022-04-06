@@ -1,5 +1,6 @@
 abrostola_tripartita_gca905340225v1
 abrostola_tripartita_gca905340255v1
+acanthopagrus_latus_gca904848185v1
 accipiter_gentilis
 acipenser_ruthenus
 acomys_cahirinus_gca004027535v1
@@ -125,6 +126,7 @@ ceratitis_capitata_gca000347755v4
 cerceris_rybyensis_gca910591515v1
 cervus_hanglu_yarkandensis
 cheirogaleus_medius_gca004024725v1
+chelmon_rostratus_gca017976325v1
 chiroxiphia_lanceolata_gca009829145v1
 choloepus_didactylus_gca015220235v1
 chrysemys_picta
@@ -235,6 +237,7 @@ hedya_salicella_gca905404275v1
 hemaris_fuciformis_gca907164795v1
 hemaris_fuciformis_gca907164865v1
 hermetia_illucens_gca905115235v1
+hippoglossus_hippoglossus_gca009819705v1
 hippopotamus_amphibius
 hipposideros_armiger
 hipposideros_galeritus_gca004027415v1
@@ -294,6 +297,7 @@ megalops_cyprinoides
 melanostoma_mellinum_gca914767615v1
 melanostoma_mellinum_gca914767635v1
 meleagris_gallopavo_gca000146605v4
+meleagris_gallopavo_gca905368555v1
 melitaea_cinxia_gca905220555v1
 melitaea_cinxia_gca905220565v1
 mellicta_athalia_gca905220535v1
@@ -363,6 +367,7 @@ pararge_aegeria_gca905163445v1
 pararge_aegeria_gca905163545v1
 parasteatoda_tepidariorum_gca000365465v3
 passer_domesticus
+patella_pellucida_gca917208275v1
 penaeus_monodon_gca015228065v1
 periophthalmus_magnuspinnatus
 peromyscus_eremicus_gca902702925v1
@@ -443,6 +448,7 @@ strix_occidentalis_caurina
 stylophora_pistillata_gca002571385v1
 sus_scrofa_gca000003025v6
 syncerus_caffer
+syngnathus_acus_gca901709675v2
 syritta_pipiens_gca905147025v1
 syritta_pipiens_gca905187475v1
 tachina_fera_gca905220375v1
@@ -464,6 +470,7 @@ tinea_semifulvella_gca910589255v1
 tinea_semifulvella_gca910589645v1
 tinea_trinotella_gca905220615v1
 tinea_trinotella_gca905220625v1
+toxotes_jaculatrix_gca017976425v1
 trachinotus_ovatus
 trachurus_trachurus_gca905171665v1
 trachypithecus_francoisi
