@@ -19,15 +19,28 @@ limitations under the License.
 
 package EnsEMBL::Web::Component::Shared;
 
-use previous qw(_format_genebuild_method);
+use EnsEMBL::Web::File::Utils::IO qw(file_exists);
 
 sub _format_genebuild_method {
   my ($self, $meta_container) = @_;
+  my $species_defs = $self->hub->species_defs;
   my $html;
 
-  my $method = PREV::_format_genebuild_method(@_);
-  my $default_doc = '/info/genome/genebuild/';
-  $html = sprintf('<a href="%s">%s</a>', $default_doc, $method);
+  my $method  = $species_defs->GENEBUILD_METHOD;
+  my $label   = $species_defs->GENEBUILD_METHOD_DISPLAY;
+  unless ($label) {
+    $label = ucfirst $method;
+    $label =~ s/_/ /g;
+  }       
+
+  my $doc_dir = '/info/genome/genebuild/';
+  my $doc_path = sprintf '%s%s.html', $doc_dir, $method;
+  my $full_path = $self->hub->species_defs->ENSEMBL_SERVERROOT.'/ensembl-rapid/htdocs/'.$doc_path;
+  unless (file_exists($full_path)) {
+    $doc_path = $doc_dir;
+  } 
+
+  $html = sprintf('<a href="%s">%s</a>', $doc_path, $label);
 
   return $html;
 }
