@@ -33,7 +33,7 @@ sub render {
   my $info        = $self->hub->get_species_info;
   my $new_species = $self->hub->species_defs->multi_val('NEW_SPECIES') || [];
   my $total       = scalar @$new_species;
-  my $lookup      = $self->hub->species_defs->production_name_lookup;
+  my $lookup      = $self->hub->species_defs->prodnames_to_urls_lookup;
 
   if ($total > 0) {
     my $including = $total > 25 ? ', including' : '';
