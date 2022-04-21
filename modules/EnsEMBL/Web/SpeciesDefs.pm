@@ -34,6 +34,14 @@ sub get_species_name {
   return $name;
 }
 
+sub reference_species {
+  ### All species are reference species on rapid release 
+  ### Returns: array of species names
+  my $self = shift;
+  return $self->valid_species;
+}
+
+
 sub _get_NCBIBLAST_source_file {
   ## @private
   my ($self, $species, $source_type) = @_;
