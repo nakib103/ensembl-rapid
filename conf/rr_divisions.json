@@ -22,10 +22,9 @@
       {"taxon": "Hymenoptera"},
       {"taxon": "Lepidoptera"},
       {"taxon": "Hexapoda", "label": "Other insects"},
-      {"taxon": "other_arthropods", "label": "Other arthropods"},
-
+      {"taxon": "other_arthropods", "label": "Other arthropods"}
     ]
   },
   {"taxon": "Animalia", "label": "Other animals"},
-  {"taxon": "Viridiplantae", "label": "Plants"},
+  {"taxon": "Viridiplantae", "label": "Plants"}
 ]
