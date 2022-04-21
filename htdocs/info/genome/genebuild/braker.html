@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Automated annotion</title>
+</head>
+
+<body>
+
+<h1>Genome track provided by BRAKER2</h1>
+
+<h2>Genome preparation</h2>
+ 
+<p>The genome phase of the Ensembl gene annotation pipeline involves loading an assembly into the Ensembl core database schema and then running a series of analyses on the loaded assembly to identify an initial set of genomic features.
+The most important aspect of this phase is identifying repeat features as soft masking of the genome is used extensively later in the annotation process.</p>
+ 
+<h3>Repeat finding</h3>
+ 
+<p>After the genomic sequence has been loaded into a database, it is screened for sequence patterns including repeats using Red [<a href="#f1">1</a>], dustmasker [<a href="#f2">2</a>] and TRF [<a href="#f3">3</a>]. 
+ 
+<h3>BRAKER2 pipeline</h3>
+ 
+<p>BRAKER2 is one of the most popular tools for  automatic eukaryotic genome annotation. 
+The pipeline has been included in the Ensembl gene annotation process to generate supplementary gene annotation tracks for non-vertebrate species with an existing Ensembl annotation, or as a draft annotation for species without transcriptomic data.</p>
+ 
+<p>BRAKER2 includes GeneMark-ES, a self-training algorithm for <i>ab initio</i> gene prediction, and Augustus, one of the most accurate gene prediction tools.
+The tool provides different options according to the available data. In the annotation process the pipeline is used in the default protein mode when the transcriptomic data are not available.</p>
+ 
+<p>The set of proteins have been downloaded from Uniprot and OrthoDB, using clade-specific filters.</p> 
+ 
+<h3>Stable identifiers</h3>
+ 
+<p>Stable identifiers are assigned to each gene, transcript, exon and translation. When annotating a species for the first time, these identifiers are auto-generated. In all subsequent annotations for a species, the stable identifiers are propagated based on comparison of the new gene set to the previous gene set.</p>
+ 
+ 
+<ol>
+<li id="f1"><b>Girgis, H.Z.</b> Red: an intelligent, rapid, accurate tool for detecting repeats
+de-novo on the genomic scale. <i>BMC Bioinformatics 16</i>, 227 (2015).</li>
+<li id="f2"><b>Morgulis, A., et al.</b>, A fast and symmetric DUST implementation to mask
+low-complexity DNA sequences. <i>J Comput Biol</i>, 2006. 13(5): p. 1028-40.</li>
+<li id="f3"><b>Benson, G.</b>, Tandem repeats finder: a program to analyze DNA sequences. <i>Nucleic Acids Res</i>, 1999. 27(2): p. 573-80.</li>
+<li id="f4"><b>Br&#x16f;na, et al.</b>, BRAKER2: automatic eukaryotic genome annotation with GeneMark-EP+ and AUGUSTUS supported by a protein database. <i>Nucleic Acids Res Genomics and Bioinformatics</i>, Volume 3, Issue 1, March 2021.</li>
+<ol>
+
+
+
+</body>
+</html>
