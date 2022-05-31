@@ -37,7 +37,7 @@ sub _format_genebuild_method {
   my $doc_path = sprintf '%s%s.html', $doc_dir, $method;
   my $full_path = $self->hub->species_defs->ENSEMBL_SERVERROOT.'/ensembl-rapid/htdocs/'.$doc_path;
   my $file_check = file_exists($full_path, {'nice' => 1});
-  unless ($file_check->{'sucess'}) {
+  unless ($file_check->{'success'}) {
     $doc_path = $doc_dir;
   } 
 
