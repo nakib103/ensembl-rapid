@@ -29,6 +29,7 @@ sub get_homologues {
   my ($homologies, $classification, $query_member) = $self->get_homologies($homology_source, $homology_description, 'compara');
 
   my $homologues = {};
+  my $lookup     = $self->hub->species_defs->prodnames_to_urls_lookup;
 
   foreach my $homology (@$homologies) {
     #use Data::Dumper;
@@ -48,7 +49,7 @@ sub get_homologues {
         $reference  = $member->gene_member;
       }
     }
-    my $url = $self->hub->species_defs->production_name_mapping($reference->genome_db->name);
+    my $url = $lookup->{$reference->genome_db->name};
 
     $homologues->{$reference->genome_db->display_name} = {
                                 'url'         => $url,

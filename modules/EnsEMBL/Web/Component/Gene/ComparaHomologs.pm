@@ -84,8 +84,7 @@ sub content {
       $site = '';
       $sp_url = $homologue->{'url'};
     }
-    my $site      = $division ? sprintf('https://%s.ensembl.org', $division eq 'www' ? "e$version" : $division)
-                              : '';
+    my $site      = $division ? sprintf('https://%s.ensembl.org', $division eq 'www' ? "e$version" : $division) : 'https://rapid.ensembl.org';
     my $href      = sprintf '<a href="%s/%s/Gene/Summary?g=%s">%s</a>', $site, $sp_url, $reference->stable_id, $reference->stable_id;
 
     my $type    = helptip(@{$desc_mapping->{$homologue->{'description'}}||[]});
