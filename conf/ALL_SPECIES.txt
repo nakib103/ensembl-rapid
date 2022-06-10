@@ -160,6 +160,7 @@ capra_hircus_blackbengal
 capra_hircus_sanclemente
 capreolus_pygargus
 carassius_auratus_gca009069565v1
+carcharodon_carcharias_gca017639515v1
 carcina_quercana_gca910589345v2
 carcina_quercana_gca910589575v1
 catharus_ustulatus
@@ -509,6 +510,9 @@ orgyia_antiqua_gca916999025v1
 orgyia_antiqua_gca917414775v1
 ornithorhynchus_anatinus_gca004115215v2
 orussus_abietinus_gca000612105v2
+oryzias_latipes_gca002234675v1
+oryzias_latipes_gca002234695v1
+oryzias_latipes_gca002234715v1
 osmia_bicornis_gca907164925v1
 osmia_bicornis_gca907164935v1
 otus_sunia
@@ -611,6 +615,7 @@ rousettus_aegyptiacus
 saccoglossus_kowalevskii_gca000003605v1
 saimiri_boliviensis_gca016699345v1
 salarias_fasciatus_gca902148845v1
+salmo_salar_gca021399835v1
 salmo_salar_gca905237065v2
 salmo_trutta_gca901001165v1
 sander_lucioperca
