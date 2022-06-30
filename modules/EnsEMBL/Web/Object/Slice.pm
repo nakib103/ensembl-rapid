@@ -15,6 +15,8 @@ limitations under the License.
 package EnsEMBL::Web::Object::Slice;
 
 sub get_data_file_species_name {
+  my $self = shift;
+  my $hub  = $self->hub;
   return lc $hub->species;
 }
 
