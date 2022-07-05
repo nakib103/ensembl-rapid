@@ -1,5 +1,2 @@
-carcharodon_carcharias_gca017639515v1
-oryzias_latipes_gca002234675v1
-oryzias_latipes_gca002234695v1
-oryzias_latipes_gca002234715v1
-salmo_salar_gca021399835v1
+bufo_bufo_gca905171765v1
+jaculus_jaculus_gca020740685v1

@@ -135,6 +135,7 @@ bos_gaurus
 bos_mutus_datongyak
 bubalus_bubalis
 bubo_bubo
+bufo_bufo_gca905171765v1
 bufo_gargarizans_gca014858855v1
 buteo_japonicus
 cairina_moschata_domestica
@@ -369,6 +370,7 @@ inachis_io_gca905147045v1
 inachis_io_gca905147125v1
 ixodes_persulcatus_gca013358835v1
 ixodes_scapularis_gca016920785v2
+jaculus_jaculus_gca020740685v1
 labeo_catla
 lacerta_agilis_gca009819535v1
 lagenorhynchus_obliquidens
