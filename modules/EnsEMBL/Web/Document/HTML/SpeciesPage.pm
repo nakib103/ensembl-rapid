@@ -101,17 +101,6 @@ sub render {
     my $db_adaptor = $self->hub->database('core', $dir);
     my $genome_container = $db_adaptor->get_GenomeContainer();
     my $genome_size = $self->thousandify($genome_container->get_ref_length());
-    my ($coding, $noncoding) = (0,0);
-    foreach my $stat (@{$genome_container->fetch_all_statistics()}) {
-      my $name = $stat->statistic;
-      next unless $name =~ /coding_cnt/;
-      if ($name eq 'coding_cnt') {
-        $coding = $stat->value;
-      }
-      else { ## Add up all non-coding stats
-        $noncoding += $stat->value;
-      }
-    }
 
     ## FTP links
     my $databases   = $species_defs->get_config($info->{'url'}, 'databases');
