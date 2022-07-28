@@ -1,7 +1,6 @@
 [{"taxon": "Mammalia", "label": "Mammals",
     "children": [
-      {"taxon": "Homo", "label": "Human"},
-      {"taxon": "Primates", "label": "Other primates"},
+      {"taxon": "Primates"},
       {"taxon": "Euarchontoglires", "label": "Rodents & lagomorphs"},
       {"taxon": "other_mammals", "label": "Other mammals"}
     ]
