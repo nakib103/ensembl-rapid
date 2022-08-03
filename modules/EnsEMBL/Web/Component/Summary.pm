@@ -29,28 +29,29 @@ sub get_extra_rows {
   return unless $sci_name eq 'Homo sapiens';
   $sci_name =~ s/ /_/;
 
-  my (@rows, $gene, $attrib);
+  my (@rows, $gene, $param);
   if ($page_type eq 'gene') {
-    $attrib = 'proj_parent_g';
+    $param  = 'g';
     $gene   = $object->Obj;
   }
   else {
-    $attrib = 'proj_parent_t';
+    $param  = 't';
     $gene   = $object->gene;
   }
+  my $attrib = 'proj_parent_'.$param;
   my @proj_attrib = @{ $gene->get_all_Attributes($attrib) };
 
   if (@proj_attrib) {
-    (my $ref_gene = $proj_attrib[0]->value) =~ s/\.\d+$//;
+    (my $ref_id = $proj_attrib[0]->value) =~ s/\.\d+$//;
 
 
     my $ref_url  = $hub->url({
           species => $sci_name,
-          type    => 'Gene',
+          type    => $hub->type,
           action  => 'Summary',
-          g       => $ref_gene
+          $param  => $ref_id
         });
-    push @rows, ["Reference equivalent", qq{<a href="https://www.ensembl.org/$ref_url">$ref_gene</a>}];
+    push @rows, ["Reference equivalent", qq{<a href="https://www.ensembl.org/$ref_url">$ref_id</a>}];
   }
 
   return @rows;
