@@ -22,7 +22,7 @@ package EnsEMBL::Web::Component::Shared;
 use EnsEMBL::Web::File::Utils::IO qw(file_exists);
 
 sub _format_genebuild_method {
-  my ($self, $meta_container) = @_;
+  my $self = shift;
   my $species_defs = $self->hub->species_defs;
   my $html;
 
