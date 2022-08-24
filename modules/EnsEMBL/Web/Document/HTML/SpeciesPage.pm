@@ -105,6 +105,13 @@ sub render {
     ## FTP links
     my $databases   = $species_defs->get_config($info->{'url'}, 'databases');
 
+    my $gb_method  = $species_defs->get_config($info->{'url'}, 'GENEBUILD_METHOD');
+    my $gb_display = $species_defs->get_config($info->{'url'}, 'GENEBUILD_METHOD_DISPLAY');
+    unless ($gb_display) {
+      $gb_display = ucfirst $gb_method;
+      $gb_display =~ s/_/ /g;
+    }
+
     my $annotation  = sprintf('<a rel="external" href="%s">FASTA/GTF/GFF3/TSV</a>', format_ftp_url($hub, $dir, 'geneset'));
     my $genome      = sprintf('<a rel="external" href="%s">FASTA</a>', format_ftp_url($hub, $dir));
     my $rnaseq      = $databases->{'DATABASE_RNASEQ'} 
@@ -122,6 +129,7 @@ sub render {
       'size'        => $genome_size,
       'accession'   => $info->{'accession'},
       'provider'    => $info->{'provider'},
+      'method'      => $gb_display,
       'annotation'  => $annotation,
       'genome'      => $genome,
       'rnaseq'      => $rnaseq,
@@ -147,9 +155,10 @@ sub table_columns {
       { key => 'accession',   title => 'Accession',             width => '5%', align => 'left' },
       { key => 'size',        title => 'Genome size (bps)',     width => '5%', align => 'left', sort => 'numeric', 'hidden' => 1  },
       { key => 'provider',    title => 'Annotation provider',   width => '10%', align => 'left' },
+      { key => 'method',      title => 'Annotation method',   width => '10%', align => 'left' },
       { key => 'annotation',  title => 'Annotation',            width => '5%', align => 'left' },
       { key => 'genome',      title => 'Genome',                width => '5%', align => 'left' },
-      { key => 'rnaseq',      title => 'RNA Seq',               width => '5%', align => 'left' },
+      { key => 'rnaseq',      title => 'RNA Seq',               width => '5%', align => 'left', 'hidden' => 1 },
   ];
 
   return $columns;
