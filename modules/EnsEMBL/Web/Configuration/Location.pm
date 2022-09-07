@@ -28,7 +28,6 @@ sub modify_tree {
   $self->PREV::modify_tree(@_);
 
   $self->delete_node('Compara');
-  $self->delete_node('Variation');
   $self->delete_node('LD');
   $self->delete_node('Marker');
 
