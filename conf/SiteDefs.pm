@@ -29,6 +29,7 @@ sub update_conf {
   $SiteDefs::HAS_ANNOTATION           = 1;
   $SiteDefs::NO_REGULATION            = 1;
   $SiteDefs::NO_VARIATION             = 0;
+  $SiteDefs::VCF_VARIANTS_ONLY        = 1;
   $SiteDefs::NO_COMPARA               = 0;
   $SiteDefs::SINGLE_SPECIES_COMPARA   = 1;
   $SiteDefs::ENSEMBL_MART_ENABLED     = 0;
