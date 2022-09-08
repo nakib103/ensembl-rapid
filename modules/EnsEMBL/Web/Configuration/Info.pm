@@ -27,7 +27,6 @@ sub modify_tree {
   $self->delete_node('Annotation');
   $self->delete_node('LocationGallery');
   $self->delete_node('GeneGallery');
-  $self->delete_node('VariationGallery');
   ## Use modified annotation page instead of regular home page
   $self->create_node('Index', '', [qw(homepage EnsEMBL::Web::Component::Info::SpeciesBlurb)], {});
 }
