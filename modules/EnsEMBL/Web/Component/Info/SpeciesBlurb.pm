@@ -50,6 +50,10 @@ sub column_left {
     $self->assembly_text,
     $self->genebuild_text);
 
+  if ($self->hub->database('variation')) {
+    $html .= '<div class="round-box tinted-box unbordered">%s</div>', $self->variation_text;
+  }
+
   $html .= '</div>';
 
   return $html;
@@ -193,5 +197,50 @@ sub genebuild_text {
     $idm_link
   );
 }
+
+sub variation_text {
+  my $self              = shift;
+  my $hub               = $self->hub;
+  my $species_defs      = $hub->species_defs;
+  my $species_prod_name = $species_defs->get_config($hub->species, 'SPECIES_PRODUCTION_NAME');
+
+  my $sample_data  = $species_defs->SAMPLE_DATA;
+
+  ## Is this species VCF-driven?
+  my $meta_info = $hub->species_defs->databases->{'DATABASE_VARIATION'}{'meta_info'}->{1};
+  my $vcf_only  = $meta_info && $meta_info->{'variation_source.database'}->[0] eq '0';
+
+  ## Split variation param if required (e.g. vervet monkey)
+  my ($v, $vf) = split(';vf=', $sample_data->{'VARIATION_PARAM'});
+  my %v_params = ('v' => $v);
+  $v_params{'vf'} = $vf if $vf;
+
+  my $ftp = $self->ftp_url;
+  my $html = sprintf('
+      <div class="homepage-icon">
+        %s
+      </div>
+      <h2>Variation</h2>
+      <p><strong>What can I find?</strong> Short sequence variants</p>
+      <p><a href="/info/genome/variation/" class="nodeco">%sMore about variation in %s</a></p>
+      %s',
+
+      $v ? sprintf(
+        $self->{'img_link'},
+        $hub->url({ type => 'Variation', action => 'Explore', __clear => 1, %v_params }),
+        "Go to variant $sample_data->{'VARIATION_TEXT'}", 'variation', 'Example variant'
+      ) : '',
+
+      sprintf($self->{'icon'}, 'info'), $species_defs->ENSEMBL_SITETYPE,
+
+      ($ftp && !$vcf_only) ? sprintf(
+        '<p><a href="%s/variation/gvf/%s/" class="nodeco">%sDownload all variants</a> (GVF)</p>', ## Link to FTP site
+        $ftp, $species_prod_name, sprintf($self->{'icon'}, 'download')
+      ) : ''
+  );
+
+  return $html;
+}
+
 
 1;
