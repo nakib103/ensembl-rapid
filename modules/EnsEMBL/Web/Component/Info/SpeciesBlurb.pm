@@ -223,7 +223,7 @@ sub variation_text {
       </div>
       <h2>Variation</h2>
       <p><strong>What can I find?</strong> Short sequence variants</p>
-      <p><a href="/info/genome/variation/" class="nodeco">%sMore about variation in %s</a></p>
+      <p><a href="/info/genome/variation/" class="nodeco">%sMore about variation in Ensembl Rapid Release</a></p>
       %s',
 
       $v ? sprintf(
@@ -232,7 +232,7 @@ sub variation_text {
         "Go to variant $sample_data->{'VARIATION_TEXT'}", 'variation', 'Example variant'
       ) : '',
 
-      sprintf($self->{'icon'}, 'info'), $species_defs->ENSEMBL_SITETYPE,
+      sprintf($self->{'icon'}, 'info'), 
 
       ($ftp && !$vcf_only) ? sprintf(
         '<p><a href="%s/variation/gvf/%s/" class="nodeco">%sDownload all variants</a> (GVF)</p>', ## Link to FTP site
