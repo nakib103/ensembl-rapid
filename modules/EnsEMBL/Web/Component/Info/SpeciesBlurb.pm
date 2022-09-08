@@ -51,7 +51,8 @@ sub column_left {
     $self->genebuild_text);
 
   if ($self->hub->database('variation')) {
-    $html .= '<div class="round-box tinted-box unbordered">%s</div>', $self->variation_text;
+    $html .= sprintf('<div class="round-box tinted-box unbordered">%s</div>', 
+                $self->variation_text);
   }
 
   $html .= '</div>';
