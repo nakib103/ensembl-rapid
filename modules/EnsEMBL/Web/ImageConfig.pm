@@ -32,18 +32,10 @@ sub add_data_files {
     my $renderers;
     if ($glyphset eq 'bamcov') {
       ## Quick'n'dirty hack until db is updated
-      if ($self->hub->species_defs->ENSEMBL_SUBTYPE eq 'Rapid Release') {
-        $renderers = [
-                      'off',                  'Off',
-                      'signal',               'Coverage (BigWig)',
-                      ];
-      }
-      else {
-        $renderers = [
-                      'off',                  'Off',
-                      'signal',               'Coverage (BigWig)',
-                      ];
-      }
+      $renderers = [
+                    'off',                  'Off',
+                    'signal',               'Coverage (BigWig)',
+                    ];
     }
     else {
       $renderers = [
