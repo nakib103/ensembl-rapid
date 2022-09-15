@@ -102,7 +102,7 @@ Each directory on <a href="$ftp" rel="external">$ftp_domain</a> contains a
       species => $sp_link, 
       dna     => sprintf('<a rel="external" title="%s" href="%s">FASTA</a>', $title{'dna'},  format_ftp_url($hub, $sp_url)),
       genes   => sprintf('<a rel="external" title="%s" href="%s">FASTA/GTF/GFF3/TSV</a>', $title{'genes'}, format_ftp_url($hub, $sp_url, 'geneset')),
-      rnaseq   => $databases->{'DATABASE_RNASEQ'} ? sprintf('<a rel="external" title="%s" href="%s">BAM</a>', $title{'rna'}, format_ftp_url($hub, $sp_url, 'rnaseq')) : '-',
+      rnaseq   => $databases->{'DATABASE_RNASEQ'} ? sprintf('<a rel="external" title="%s" href="%s">bigWig</a>', $title{'rna'}, format_ftp_url($hub, $sp_url, 'rnaseq')) : '-',
     };
 
   }
