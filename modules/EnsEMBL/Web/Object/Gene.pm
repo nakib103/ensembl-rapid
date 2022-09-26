@@ -49,6 +49,8 @@ sub get_homologues {
         $reference  = $member->gene_member;
       }
     }
+    next unless $reference;
+
     my $url = $lookup->{$reference->genome_db->name};
 
     $homologues->{$reference->genome_db->display_name} = {
