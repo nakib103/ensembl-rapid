@@ -1,0 +1,78 @@
+{
+    "collections": [
+        {
+            "id": "gnomADg",
+            "description": "Genome Aggregation Database genomes v3.1.2",
+            "species": "Homo_sapiens_GCA_018467155.1",
+            "assembly": "HG01891.pri.mat.f1_v2",
+            "type": "local",
+            "use_as_source": 1,
+            "use_seq_region_synonyms": 0,
+            "use_vcf_consequences": 1,
+            "filename_template": "/nfs/public/release/ensweb-data/data_files/rapid/homo_sapiens_gca018467155v1/HG01891.pri.mat.f1_v2/variation/Homo_sapiens-GCA_018467155.1-2022_10-gnomad.vcf.gz",
+            "population_prefix": "gnomADg:",
+            "population_display_group": {
+                "display_group_name": "gnomAD genomes v3.1.2",
+                "display_group_priority": 1.6
+            },
+            "populations": {
+                "9900028": {
+                    "name": "gnomADg:ALL",
+                    "_raw_name": "",
+                    "description": "All gnomAD genomes individuals"
+                },
+                "9900029": {
+                    "name": "afr",
+                    "description": "African/African American"
+                },
+                "9900030": {
+                    "name": "ami",
+                    "description": "Amish"
+                },
+                "9900031": {
+                    "name": "amr",
+                    "description": "Latino/Admixed American"
+                },
+                "9900032": {
+                    "name": "asj",
+                    "description": "Ashkenazi Jewish"
+                },
+                "9900033": {
+                    "name": "eas",
+                    "description": "East Asian"
+                },
+                "9900034": {
+                    "name": "fin",
+                    "description": "Finnish"
+                },
+                "9900035": {
+                    "name": "nfe",
+                    "description": "Non-Finnish European"
+                },
+                "9900036": {
+                    "name": "sas",
+                    "description": "South Asian"
+                },
+                "9900037": {
+                    "name": "oth",
+                    "description": "Other"
+                },
+                "9900038": {
+                    "name": "mid",
+                    "description": "Middle Eastern"
+                }
+            }
+        },
+        {
+            "id": "ClinVar",
+            "description": "ClinVar",
+            "species": "Homo_sapiens_GCA_018467155.1",
+            "assembly": "HG01891.pri.mat.f1_v2",
+            "type": "local",
+            "use_as_source": 1,
+            "use_seq_region_synonyms": 0,
+            "use_vcf_consequences": 1,
+            "filename_template": "/nfs/public/release/ensweb-data/data_files/rapid/homo_sapiens_gca018467155v1/HG01891.pri.mat.f1_v2/variation/Homo_sapiens-GCA_018467155.1-2022_10-clinvar.vcf.gz"
+        }
+    ]
+}
