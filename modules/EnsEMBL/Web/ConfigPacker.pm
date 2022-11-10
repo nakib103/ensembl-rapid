@@ -27,9 +27,26 @@ sub munge_databases {
   my $self   = shift;
   my @tables = qw(core cdna otherfeatures rnaseq);
   $self->_summarise_core_tables($_, 'DATABASE_' . uc $_) for @tables;
+  $self->_summarise_genome_size('core', 'DATABASE_CORE');
   $self->_summarise_xref_types('DATABASE_' . uc $_) for @tables;
   $self->_summarise_variation_db('variation', 'DATABASE_VARIATION');
   $self->_summarise_compara_db('compara', 'DATABASE_COMPARA');
+}
+
+
+sub _summarise_genome_size {
+  my ($self, $code, $db_name) = @_;
+
+  my $dbh = $self->db_connect($db_name);
+  return unless $dbh;
+
+  ## Used in species table
+  my $aref = $dbh->selectall_arrayref(
+    "select value from genome_statistics where statistic = 'ref_length'"
+  );
+  $self->db_tree->{'STATS_GENOME_SIZE'} = $aref->[0][0];
+
+  $dbh->disconnect;
 }
 
 sub munge_databases_multi {

@@ -98,9 +98,7 @@ sub render {
     my $common_name = sprintf('%s%s', $info->{'common_name'}, $strain_name);;
 
     ## Species stats
-    my $db_adaptor = $self->hub->database('core', $dir);
-    my $genome_container = $db_adaptor->get_GenomeContainer();
-    my $genome_size = $self->thousandify($genome_container->get_ref_length());
+    my $genome_size = $species_defs->get_config($info->{'url'}, 'STATS_GENOME_SIZE') || '-';
 
     ## FTP links
     my $databases   = $species_defs->get_config($info->{'url'}, 'databases');
