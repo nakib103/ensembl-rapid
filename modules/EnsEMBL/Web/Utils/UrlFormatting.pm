@@ -28,15 +28,14 @@ sub format_ftp_url {
   my $sd  = $hub->species_defs;
 
   $species ||= $hub->species;
-  my $url = sprintf '%s/species/%s/%s', 
+  my $url = sprintf '%s/species/%s/%s/%s',
               $sd->ENSEMBL_FTP_URL, 
               $sd->get_species_name($species),
-              $sd->get_config($species, 'ASSEMBLY_ACCESSION');
+              $sd->get_config($species, 'ASSEMBLY_ACCESSION'),
+              (lc($sd->get_config($species, 'SPECIES_ANNOTATION_SOURCE')) || "ensembl");
 
   if ($link_type eq 'geneset') {
-    my $geneset = $sd->get_config($species, 'LAST_GENESET_UPDATE');
-    $geneset    =~ s/-/_/g;
-    $url       .= sprintf '/geneset/%s/', $geneset;
+    $url .= '/geneset/';
   }
   elsif ($link_type eq 'rnaseq') {
     $url .= '/rnaseq/';
