@@ -3,7 +3,7 @@
         {
             "id": "eva_drosophila_melanogaster_gca000001215v4",
             "description": "Variants from EVA",
-            "species": "Drosophila_melanogaster_GCA_000001215.4",
+            "species": "Drosophila_melanogaster",
             "assembly": "BDGP6.32",
             "type": "remote",
             "filename_template": "https://ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_3/by_species/drosophila_melanogaster/GCA_000001215.4/GCA_000001215.4_current_ids.vcf.gz",
