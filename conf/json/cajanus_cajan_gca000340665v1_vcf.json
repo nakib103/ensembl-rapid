@@ -1,0 +1,16 @@
+{
+    "collections": [
+        {
+            "id": "eva_cajanus_cajan_gca000340665v1",
+            "description": "Variants from EVA",
+            "species": "Cajanus_cajan_GCA_000340665.1",
+            "assembly": "C.cajan_V1.0",
+            "type": "remote",
+            "filename_template": "https://ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_3/by_species/cajanus_cajan/GCA_000340665.1/GCA_000340665.1_current_ids.vcf.gz",
+            "use_as_source": 1,
+            "use_seq_region_synonyms": 1,
+            "source_name": "EVA",
+            "source_version": 3
+        }
+    ]
+}
